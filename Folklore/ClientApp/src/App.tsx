@@ -1,20 +1,20 @@
 import * as React from 'react';
-import { Route } from 'react-router';
+import { Route, Switch } from 'react-router';
 import Layout from './components/Layout';
-import Home from './components/Home';
-import Counter from './components/Counter';
-import FetchData from './components/FetchData';
-import SearchDocumentPage from "./components/Documents";
+import Home from './pages/Home';
+import DocumentView from './pages/DocumentView';
+import DocumentsSearch from './pages/DocumentsSearch';
+import DocumentCreation from './pages/DocumentCreation';
 
-import './custom.css'
-import DocumentCard from './components/DocumentCard';
+import './custom.css';
 
 export default () => (
-    <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
-        <Route path='/documents' component={SearchDocumentPage}/>
-        <Route path='/document/:documentId' component={DocumentCard}/>
-    </Layout>
+  <Layout>
+    <Switch>
+      <Route exact path='/' component={Home} />
+      <Route exact path='/documents' component={DocumentsSearch} />
+      <Route exact path='/document/view/:id/' component={DocumentView} />
+      <Route exact path='/document/creation' component={DocumentCreation} />
+    </Switch>
+  </Layout>
 );

@@ -20,4 +20,4 @@ const Home = () => (
   </div>
 );
 
-export default connect()(Home);
+export default Home;

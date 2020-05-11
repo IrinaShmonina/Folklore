@@ -1,17 +1,19 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
 import DocumentApi from '../api/documentsApi';
 import FolkDocument from '../models/Document';
-import { Col, Button, Input, Badge, Progress } from 'reactstrap';
+import { Col, Button, Input, Badge } from 'reactstrap';
 import { Informant } from '../models/Informant';
-import { InputRow } from './InputRow';
-import { DocInput } from './DocInput';
-import { Link } from 'react-router-dom';
+import { InputRow } from '../components/InputRow';
+import { DocInput } from '../components/DocInput';
 
-type DocumentCardProps = RouteComponentProps<{ documentId: string }>;
+export interface DocumentCardProps {
+  doc: FolkDocument;
+  editing: boolean;
+  onDocSave: (doc: FolkDocument) => Promise<void>;
+}
 
-interface DocumentCardState {
-  doc?: FolkDocument;
+export interface DocumentCardState {
+  doc: FolkDocument;
   editing: boolean;
   newInformant: Informant;
 }
@@ -19,33 +21,28 @@ interface DocumentCardState {
 export default class DocumentCard extends React.Component<DocumentCardProps, DocumentCardState> {
   constructor(props: DocumentCardProps, state: DocumentCardState) {
     super(props, state);
-    this.state = { editing: false, newInformant: {} };
-  }
-
-  componentWillMount() {
-    let id = parseInt(this.props.match.params.documentId, 10)
-    DocumentApi.getDocument(id).then(doc => { this.setState({ doc }) })
+    this.state = {
+      doc: props.doc,
+      editing: props.editing,
+      newInformant: {
+        fio: '',
+        yearOfBirth: 0
+      }
+    };
   }
 
   startEditing() {
-    this.setState({ editing: true })
+    this.setState({ editing: true });
   }
 
-  saveChanges() {
+  async saveChanges() {
     const { doc } = this.state;
-    if (!doc) {
-      return
-    }
-
-    this.setState({ editing: false })
-    DocumentApi.updateDocument(doc).then(doc => { console.log(doc); this.setState({ doc }); }).then(() => alert('update done'))
+    this.setState({ editing: false });
+    await this.props.onDocSave(doc);
   }
 
   changeDocument(partialDocument: Partial<FolkDocument>) {
     let { doc } = this.state;
-    if (!doc) {
-      return
-    }
 
     this.setState({
       doc: {
@@ -63,43 +60,37 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
         ...newInformant,
         ...partialInformant
       }
-    })
+    });
   }
 
-  addNewInformant() {
+  pushNewInformant() {
     let { newInformant, doc } = this.state;
-    if (!doc) {
-      return
-    }
 
     this.changeDocument({
       informants: [
         ...doc.informants,
         newInformant
       ]
-    })
-    this.setState({ newInformant: {} })
+    });
+    this.setState({ newInformant: {
+      fio: '',
+      yearOfBirth: 0
+    }});
   }
 
   deleteInformant(deleteIndex: number) {
     let { doc } = this.state;
-    if (!doc) {
-      return
-    }
 
     this.changeDocument({
       informants: doc.informants.filter((_, i) => i != deleteIndex)
-    })
+    });
   }
 
   renderInformant() {
-    const { doc, editing } = this.state;
-    if (!doc) {
-      return null;
-    }
+    const { doc, editing, newInformant } = this.state;
 
     const informantComponents = doc.informants.map((informant, i) => (
-      <InputRow>
+      <InputRow key={i}>
         <Col sm={8}>
           <Input readOnly={true} type="text" value={informant.fio} />
         </Col>
@@ -117,30 +108,27 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     const editingComponent = (
       <InputRow>
         <Col sm={8}>
-          <Input type="text" placeholder="ФИО" onChange={e => this.changeNewInformant({ fio: e.target.value })} />
+          <Input type="text" placeholder="ФИО" value={newInformant.fio} onChange={e => this.changeNewInformant({ fio: e.target.value })} />
         </Col>
         <Col sm={2}>
-          <Input type="number" placeholder="Год" onChange={e => this.changeNewInformant({ yearOfBirth: parseInt(e.target.value) })} />
+          <Input type="number" placeholder="Год" value={newInformant.yearOfBirth} onChange={e => this.changeNewInformant({ yearOfBirth: parseInt(e.target.value, 10) })} />
         </Col>
         <Col sm={2}>
-          <Button outline color="primary" style={{ width: "100%" }} onClick={() => this.addNewInformant()}>Добавить</Button>
+          <Button outline color="primary" style={{ width: "100%" }} onClick={() => this.pushNewInformant()}>Добавить</Button>
         </Col>
       </InputRow>
     );
 
     return (
       <React.Fragment>
-          {informantComponents}
-          {editing ? editingComponent : null}
+        {informantComponents}
+        {editing ? editingComponent : null}
       </React.Fragment>
     );
   }
 
   renderTags() {
     const { doc, editing } = this.state;
-    if (!doc) {
-      return null;
-    }
 
     let tags = doc.tags.map((tag, i) =>
       <Badge key={i} color="primary" style={{ margin: "3px", fontSize: "12pt" }}>
@@ -149,12 +137,12 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
 
     let editingComponent = (
       <InputRow>
-          <Col sm={10}>
-            <Input type="text" placeholder="Тег" />
-          </Col>
-          <Col sm={2}>
-            <Button outline color="primary" style={{ width: "100%" }}>Добавить</Button>
-          </Col>
+        <Col sm={10}>
+          <Input type="text" placeholder="Тег" />
+        </Col>
+        <Col sm={2}>
+          <Button outline color="primary" style={{ width: "100%" }}>Добавить</Button>
+        </Col>
       </InputRow>
     );
 
@@ -169,30 +157,25 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
   }
 
   initializeUploadDocumentFile() {
-    const file = document.getElementById("uploadDocument")
+    const file = document.getElementById("uploadDocument");
     if (file) {
       file.click();
     }
   }
 
-  uploadDocumentFile(fileList: FileList | null) {
+  async uploadDocumentFile(fileList: FileList | null) {
     if (!fileList || fileList.length == 0) {
       return;
     }
 
     const file = fileList[0];
-    
-    DocumentApi.uploadFile(file)
-      .then(id => this.changeDocument({fileName: id}))
-      .then(() => alert('upload ok'));
+    const id = await DocumentApi.uploadFile(file);
+    this.changeDocument({ fileName: file.name, fileId: id });
+    alert('upload ok');
   }
 
   render() {
     const { doc, editing } = this.state;
-
-    if (!doc) {
-      return <div>Документ ещё не загрузился</div>
-    }
 
     return (
       <div>
@@ -203,7 +186,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
         <DocInput label="Информанты">
           {this.renderInformant()}
         </DocInput>
-      
+
 
         <DocInput label="Содержание">
           <Input readOnly={!editing} style={{ height: "200px", resize: "none" }} type="textarea" value={doc.content} />
@@ -218,18 +201,18 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
           <Badge color="primary" style={{ margin: "3px", fontSize: "12pt" }}>Второй жанр</Badge>
           <Badge color="primary" style={{ margin: "3px", fontSize: "12pt" }}>И оооооочень длинннннный жанр</Badge>
         </ DocInput>
- 
+
         <DocInput label="Документ">
           <InputRow>
             <Col sm={10}>
-              <a href={DocumentApi.makeDocumentFileDownloadLink(doc.fileName || "bad")}>{doc.fileName}</a>
+              <a href={DocumentApi.makeDocumentFileDownloadLink(doc.fileId || "")}>{doc.fileName}</a>
             </Col>
             {
               editing
                 ? <Col sm={2}>
-                    <input type="file" id="uploadDocument" style={{display:"none"}} onChange={x => this.uploadDocumentFile(x.target.files)} />
-                    <Button onClick={() => this.initializeUploadDocumentFile()}outline color="primary" style={{ width: "100%" }}>Загрузить</Button>
-                  </Col>
+                  <input type="file" id="uploadDocument" style={{ display: "none" }} onChange={x => this.uploadDocumentFile(x.target.files)} />
+                  <Button onClick={() => this.initializeUploadDocumentFile()} outline color="primary" style={{ width: "100%" }}>Загрузить</Button>
+                </Col>
                 : null
             }
           </InputRow>
@@ -237,13 +220,13 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
 
         <DocInput label="">
           <InputRow>
-          <Col sm={{ size: 2, offset: 10 }}>
-            {
-              editing
-                ? <Button outline color="success" style={{ width: "100%" }} onClick={() => this.saveChanges()}>Сохранить</Button>
-                : <Button outline color="secondary" style={{ width: "100%" }} onClick={() => this.startEditing()}>Изменить</Button>
-            }
-          </Col>
+            <Col sm={{ size: 2, offset: 10 }}>
+              {
+                editing
+                  ? <Button outline color="success" style={{ width: "100%" }} onClick={() => this.saveChanges()}>Сохранить</Button>
+                  : <Button outline color="secondary" style={{ width: "100%" }} onClick={() => this.startEditing()}>Изменить</Button>
+              }
+            </Col>
           </InputRow>
         </DocInput>
       </div>

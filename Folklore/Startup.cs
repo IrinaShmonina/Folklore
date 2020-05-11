@@ -9,7 +9,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.IO;
+using System.Reflection.Metadata;
+using Azure.Storage.Blobs;
 using Folklore.Storages;
+using Microsoft.Extensions.Azure;
 
 namespace Folklore
 {
@@ -30,7 +33,8 @@ namespace Folklore
             services.AddControllersWithViews();
             services.AddSingleton<IDbConnection>(new SqlConnection(settings.SqlConnection));
             services.AddSingleton<IStorage>(ctx => new Storage(ctx.GetService<IDbConnection>()));
-            services.AddSingleton<IFileStorage>(ctx => new FileStorage());
+            services.AddSingleton(new BlobServiceClient(settings.AzureBlobConnection));
+            services.AddSingleton<IFileStorage>(ctx => new FileStorage(ctx.GetService<BlobServiceClient>()));
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

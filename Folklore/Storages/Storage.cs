@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading;
 using Dapper;
 using Folklore.Models;
 
@@ -24,21 +26,23 @@ namespace Folklore.Storages
 
         public Document GetDocument(int id)
         {
-            var sqlrdf = @"Select d.*,f.*
+            var doc = db.Query<Document>(@"
+Select *
+From [dbo].[Documents] d 
+Where d.Id=@Id
+", new {Id = id}).Single();
+            Console.WriteLine(5);
+            
+            var sqlrdf = @"Select f.*
 From [dbo].[Documents] d 
 inner join [dbo].[Rels_Document_Folklorist] rdf on d.Id=rdf.DocumentId
 inner join [dbo].[Folklorists] f on rdf.FolkloristId=f.Id
 Where d.Id=@Id";
-            var docs = db.Query<Document,Folklorist,Document>(sqlrdf, (d, f) =>
-            {
-                d.Folklorists.Add(f);
-                return d;
-            }, new {Id=id})
-                .ToList();
-
-            docs.First().Folklorists.AddRange(docs.Skip(1).SelectMany(x => x.Folklorists));
-            var doc = docs.First();
-
+            var folklorists = db.Query<Folklorist>(sqlrdf, new {Id=id});
+            doc.Folklorists.AddRange(folklorists);
+            
+            Console.WriteLine(6);
+            
             var sqlrdi = @"Select i.*
 From [dbo].[Documents] d 
 inner join [dbo].[Rels_Document_Informant] rdi on d.Id=rdi.DocumentId
@@ -46,7 +50,7 @@ inner join [dbo].[Informants] i on rdi.InformantId=i.Id
 Where d.Id=@Id";
             var informants = db.Query<Informant>(sqlrdi, new {Id = id});
             doc.Informants.AddRange(informants);
-
+            Console.WriteLine(7);
             var sqlrdg = @"Select g.*
 From [dbo].[Documents] d 
 inner join [dbo].[Rels_Document_Genre] rdg on rdg.DocumentId=d.Id
@@ -55,6 +59,8 @@ Where d.Id=@Id";
             var genres = db.Query<Genres>(sqlrdg, new { Id = id });
             doc.Genres.AddRange(genres);
 
+            Console.WriteLine(8);
+
             var sqlrdmtc = @"Select mtc.*
 From [dbo].[Documents] d 
 inner join [dbo].[Rels_Document_MotivationalThematicClassification] rdmtc on rdmtc.DocumentId=d.Id
@@ -62,7 +68,8 @@ inner join [dbo].[MotivationalThematicClassifications] mtc on mtc.[Id]=rdmtc.[Mo
 Where d.Id=@Id";
             var mtcs = db.Query<MotivationalThematicClassification>(sqlrdmtc, new { Id = id });
             doc.MotivationalThematicClassifications.AddRange(mtcs);
-
+            Console.WriteLine(9);
+            
             var sqlrdt = @"Select t.*
 From [dbo].[Documents] d 
 inner join [dbo].[Rels_Document_Tag] rdt on rdt.[DocumentId]=d.Id
@@ -70,6 +77,7 @@ inner join [dbo].[Rels_Document_Tag] t on rdt.[TagId]=t.Id
 Where d.Id=@Id";
             var tags = db.Query<Tag>(sqlrdt, new { Id = id });
             doc.Tags.AddRange(tags);
+            Console.WriteLine(10);
 
             return doc;
         }
@@ -102,12 +110,13 @@ WHERE Id=@Id";
                 FileId=updateDocument.FileId,
                 Id = updateDocument.Id
             });
-
+            Console.WriteLine(1);
             // Update informants
             db.Query<int>(
                 @"DELETE FROM [dbo].[Rels_Document_Informant] WHERE [DocumentId]=@Id", 
                 new {Id = updateDocument.Id});
 
+            Console.WriteLine(2);
             var informantIds = new List<int>();
             foreach (var informant in updateDocument.Informants)
             {
@@ -120,13 +129,15 @@ WHERE Id=@Id";
                 informantIds.Add(AddInformant(informant).Id.Value);
             }
             
+            Console.WriteLine(3);
             foreach (var informantId in informantIds)
             {
                 db.Execute(@"
 INSERT INTO [dbo].[Rels_Document_Informant] ([DocumentId],[InformantId])
 VALUES (@IdDoc,@IdInf)", new {IdDoc = updateDocument.Id, IdInf = informantId});
             }
-
+            
+            Console.WriteLine(4);
 
             /*
             var sqlDelF = @"DELETE FROM [dbo].[Rels_Document_Folklorist] WHERE [DocumentId]=@Id";
@@ -181,7 +192,7 @@ VALUES (@IdDoc,@IdInf)", new {IdDoc = updateDocument.Id, IdInf = informantId});
 
             db.Query<Document>(sql, new { Id = id });
         }
-        public void AddDocument(Document document)
+        public Document AddDocument(Document document)
         {
             var sqlAddDoc = @"INSERT INTO [dbo].Documents
                 (Title, Content, PlaceName, PlaceLatitude, PlaceLongitude, YearOfRecord, AdditionalInformation, FileName, FileId, Deleted)
@@ -199,6 +210,9 @@ VALUES (@IdDoc,@IdInf)", new {IdDoc = updateDocument.Id, IdInf = informantId});
                 FileName = document.FileName,
                 FileId=document.FileId
             }).Single();
+            Console.WriteLine("Added id: " + id);
+            
+            /*
             foreach (var f in document.Folklorists)
             {
                 var sqlAddRels_Doc_F = @"INSERT INTO [dbo].[Rels_Document_Folklorist]
@@ -242,7 +256,8 @@ VALUES (@IdDoc,@IdInf)", new {IdDoc = updateDocument.Id, IdInf = informantId});
                     (@IdDoc,@IdT)";
                 db.Query<int>(sqlAddRels_Doc_T, new { IdDoc = id, IdT = t.Id });
             }
-
+            */
+            return GetDocument(id);
         }
         #endregion
         #region Folklorist

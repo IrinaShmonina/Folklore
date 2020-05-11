@@ -26,12 +26,12 @@ namespace Folklore.Controllers
             return storage.GetAllDocuments();
         }
 
-
         [HttpPost]
-        public void AddDocument([FromBody]Document newDocument)
+        public Document AddDocument([FromBody]Document newDocument)
         {
-            storage.AddDocument(newDocument);
+            return storage.AddDocument(newDocument);
         }
+        
         [HttpDelete]
         public void DeleteDocument([FromQuery] int id)
         {

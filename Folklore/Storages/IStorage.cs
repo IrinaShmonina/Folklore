@@ -6,7 +6,7 @@ namespace Folklore.Storages
     public interface IStorage
     {
         IEnumerable<Document> GetAllDocuments();
-        void AddDocument(Document document);
+        Document AddDocument(Document document);
         void DeleteDocument(int id);
         IEnumerable<Folklorist> GetAllFolklorists();
         Folklorist AddFolklorist(Folklorist newFolklorist);
