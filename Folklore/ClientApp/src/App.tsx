@@ -7,14 +7,17 @@ import DocumentsSearch from './pages/DocumentsSearch';
 import DocumentCreation from './pages/DocumentCreation';
 
 import './custom.css';
+import { YMaps } from 'react-yandex-maps';
 
 export default () => (
+  <YMaps query={{apikey: "c7db9e84-9191-456b-aa74-540782f78dc1"}}>
   <Layout>
     <Switch>
       <Route exact path='/' component={Home} />
       <Route exact path='/documents' component={DocumentsSearch} />
       <Route exact path='/document/view/:id/' component={DocumentView} />
-      <Route exact path='/document/creation' component={DocumentCreation} />
+      <Route exact path='/document/create' component={DocumentCreation} />
     </Switch>
   </Layout>
+  </YMaps>
 );

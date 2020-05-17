@@ -1,17 +1,30 @@
 import * as React from 'react';
 import DocumentApi from '../api/documentsApi';
-import { Table } from 'reactstrap';
+import { Table, Button, Col, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import Loader from '../components/Loader';
+import FolkDocument from '../models/Document';
 
-export default class DocumentsSearch extends React.Component<any, any> {
-  constructor(props: any, state: any) {
+export interface DocumentsSearchProps {
+  
+}
+
+export interface DocumentsSearchState {
+  documents:FolkDocument[],
+  loading:boolean,
+  search: string
+}
+
+export default class DocumentsSearch extends React.Component<DocumentsSearchProps, DocumentsSearchState> {
+  constructor(props: DocumentsSearchProps, state: DocumentsSearchState) {
     super(props, state);
-    this.state = { documents: [] };
+    this.state = { documents: [], loading:false, search:'' };
   }
 
   componentWillMount() {
+    this.setState({loading:true});
     DocumentApi.getAllDocuments().then(documents => {
-      this.setState({ documents });
+      this.setState({ documents, loading:false });
     });
   }
 
@@ -23,8 +36,29 @@ export default class DocumentsSearch extends React.Component<any, any> {
     );
   }
 
+  async searchDocuments() {
+    let { search } = this.state;
+
+    this.setState({documents: await DocumentApi.searchDocuments(search)});
+    
+
+  }
+
   private renderDocuments() {
+    const { loading,search } = this.state;
+    if (loading){
+      return <Loader/>
+    }
     return (
+      <>
+      <br />
+      <Col sm={2}>
+        <Input type="text" value={search} onChange={e => this.setState({ search: e.target.value })}/>
+      </Col>
+      <Col sm={{ size: 2, offset: 10 }}>
+        <Button outline color="primary" style={{ width: "100%" }} onClick={() => this.searchDocuments()}>Поиск</Button>
+      </Col>
+      <br />
       <Table hover>
         <thead>
           <tr>
@@ -43,6 +77,7 @@ export default class DocumentsSearch extends React.Component<any, any> {
           )}
         </tbody>
       </Table>
+      </>
     );
   }
 }

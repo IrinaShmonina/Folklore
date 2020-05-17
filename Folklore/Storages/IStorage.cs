@@ -19,5 +19,6 @@ namespace Folklore.Storages
         Document GetDocument(int id);
         Document UpdateDocument(Document updateDocument);
         IEnumerable<Informant> GetTopInformants(string s);
+        IEnumerable<Document> SearchDocument(string s);
     }
 }

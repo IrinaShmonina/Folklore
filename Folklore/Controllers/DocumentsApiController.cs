@@ -43,5 +43,11 @@ namespace Folklore.Controllers
         {
             return storage.UpdateDocument(updateDocument);
         }
+        [Route("search")]
+        [HttpGet]
+        public IEnumerable<Document> SearchDocument([FromQuery] string param)
+        {
+            return storage.SearchDocument(param);
+        }
     }
 }

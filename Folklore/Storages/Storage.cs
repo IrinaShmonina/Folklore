@@ -31,8 +31,7 @@ Select *
 From [dbo].[Documents] d 
 Where d.Id=@Id
 ", new {Id = id}).Single();
-            Console.WriteLine(5);
-            
+
             var sqlrdf = @"Select f.*
 From [dbo].[Documents] d 
 inner join [dbo].[Rels_Document_Folklorist] rdf on d.Id=rdf.DocumentId
@@ -40,9 +39,7 @@ inner join [dbo].[Folklorists] f on rdf.FolkloristId=f.Id
 Where d.Id=@Id";
             var folklorists = db.Query<Folklorist>(sqlrdf, new {Id=id});
             doc.Folklorists.AddRange(folklorists);
-            
-            Console.WriteLine(6);
-            
+
             var sqlrdi = @"Select i.*
 From [dbo].[Documents] d 
 inner join [dbo].[Rels_Document_Informant] rdi on d.Id=rdi.DocumentId
@@ -50,7 +47,7 @@ inner join [dbo].[Informants] i on rdi.InformantId=i.Id
 Where d.Id=@Id";
             var informants = db.Query<Informant>(sqlrdi, new {Id = id});
             doc.Informants.AddRange(informants);
-            Console.WriteLine(7);
+
             var sqlrdg = @"Select g.*
 From [dbo].[Documents] d 
 inner join [dbo].[Rels_Document_Genre] rdg on rdg.DocumentId=d.Id
@@ -59,7 +56,6 @@ Where d.Id=@Id";
             var genres = db.Query<Genres>(sqlrdg, new { Id = id });
             doc.Genres.AddRange(genres);
 
-            Console.WriteLine(8);
 
             var sqlrdmtc = @"Select mtc.*
 From [dbo].[Documents] d 
@@ -68,16 +64,14 @@ inner join [dbo].[MotivationalThematicClassifications] mtc on mtc.[Id]=rdmtc.[Mo
 Where d.Id=@Id";
             var mtcs = db.Query<MotivationalThematicClassification>(sqlrdmtc, new { Id = id });
             doc.MotivationalThematicClassifications.AddRange(mtcs);
-            Console.WriteLine(9);
-            
+
             var sqlrdt = @"Select t.*
 From [dbo].[Documents] d 
 inner join [dbo].[Rels_Document_Tag] rdt on rdt.[DocumentId]=d.Id
-inner join [dbo].[Rels_Document_Tag] t on rdt.[TagId]=t.Id
+inner join [dbo].[Tags] t on rdt.[TagId]=t.Id
 Where d.Id=@Id";
             var tags = db.Query<Tag>(sqlrdt, new { Id = id });
             doc.Tags.AddRange(tags);
-            Console.WriteLine(10);
 
             return doc;
         }
@@ -116,7 +110,6 @@ WHERE Id=@Id";
                 @"DELETE FROM [dbo].[Rels_Document_Informant] WHERE [DocumentId]=@Id", 
                 new {Id = updateDocument.Id});
 
-            Console.WriteLine(2);
             var informantIds = new List<int>();
             foreach (var informant in updateDocument.Informants)
             {
@@ -129,59 +122,104 @@ WHERE Id=@Id";
                 informantIds.Add(AddInformant(informant).Id.Value);
             }
             
-            Console.WriteLine(3);
+
             foreach (var informantId in informantIds)
             {
                 db.Execute(@"
 INSERT INTO [dbo].[Rels_Document_Informant] ([DocumentId],[InformantId])
 VALUES (@IdDoc,@IdInf)", new {IdDoc = updateDocument.Id, IdInf = informantId});
             }
-            
-            Console.WriteLine(4);
+            var folkloristIds = new List<int>();
+            foreach (var folklorist in updateDocument.Folklorists)
+            {
+                if (folklorist.Id != null)
+                {
+                    informantIds.Add(folklorist.Id.Value);
+                    continue;
+                }
 
+                folkloristIds.Add(AddFolklorist(folklorist).Id.Value);
+            }
+            foreach (var folkloristId in folkloristIds)
+            {
+                db.Execute(@"
+INSERT INTO [dbo].[Rels_Document_Folklorist] ([DocumentId],[FolkloristId])
+VALUES (@IdDoc,@IdFol)", new { IdDoc = updateDocument.Id, IdFol = folkloristId });
+            }
+
+            var tagIds = new List<int>();
+            foreach (var tag in updateDocument.Tags)
+            {
+                if (tag.Id != null)
+                {
+                    informantIds.Add(tag.Id.Value);
+                    continue;
+                }
+
+                tagIds.Add(AddTag(tag).Id.Value);
+            }
+            foreach (var tagId in tagIds)
+            {
+                db.Execute(@"
+INSERT INTO [dbo].[Rels_Document_Tag] ([DocumentId],[TagId])
+VALUES (@IdDoc,@IdT)", new { IdDoc = updateDocument.Id, IdT = tagId });
+            }
+
+            var genresIds = new List<int>();
+            foreach (var genre in updateDocument.Genres)
+            {
+                if (genre.Id != null)
+                {
+                    informantIds.Add(genre.Id.Value);
+                    continue;
+                }
+
+                genresIds.Add(AddGenre(genre).Id.Value);
+            }
+
+            foreach (var genresId in genresIds)
+            {
+                db.Execute(@"
+INSERT INTO [dbo].[Rels_Document_Genre] ([DocumentId],[GenreId])
+VALUES (@IdDoc,@IdG)", new {IdDoc = updateDocument.Id, IdG = genresId});
+
+            }
+
+            var mtcIds = new List<int>();
+            foreach (var mtc in updateDocument.MotivationalThematicClassifications)
+            {
+                if (mtc.Id != null)
+                {
+                    informantIds.Add(mtc.Id.Value);
+                    continue;
+                }
+
+                mtcIds.Add(AddMotivationalThematicClassification(mtc).Id.Value);
+            }
+
+            foreach (var mtcId in mtcIds)
+            {
+                db.Execute(@"
+INSERT INTO [dbo].[Rels_Document_MotivationalThematicClassification] ([DocumentId],[MotivationalThematicClassificationId])
+VALUES (@IdDoc,@IdM)", new { IdDoc = updateDocument.Id, IdM = mtcIds });
+
+            }
             /*
-            var sqlDelF = @"DELETE FROM [dbo].[Rels_Document_Folklorist] WHERE [DocumentId]=@Id";
-            db.Query<int>(sqlDelF, new {Id = updateDocument.Id});
-            foreach (var f in updateDocument.Folklorists)
-            {
-                var sqlAddRels_Doc_F = @"INSERT INTO [dbo].[Rels_Document_Folklorist]
-                    ([DocumentId],[FolkloristId])
-                VALUES
-                    (@IdDoc,@IdFol)";
-                db.Query<int>(sqlAddRels_Doc_F, new { IdDoc = updateDocument.Id, IdFol = f.Id });
-            }
-            
-            var sqlDelG = @"DELETE FROM [dbo].[Rels_Document_Genre] WHERE [DocumentId]=@Id";
-            db.Query<int>(sqlDelG, new { Id = updateDocument.Id });
-            foreach (var g in updateDocument.Genres)
-            {
-                var sqlAddRels_Doc_G = @"INSERT INTO [dbo].[Rels_Document_Genre]
-                    ([DocumentId],[GenreId])
-                VALUES
-                    (@IdDoc,@IdG)";
-                db.Query<int>(sqlAddRels_Doc_G, new { IdDoc = updateDocument.Id, IdG = g.Id });
-            }
-            var sqlDelMTC = @"DELETE FROM [dbo].[Rels_Document_MotivationalThematicClassification] WHERE [DocumentId]=@Id";
-            db.Query<int>(sqlDelMTC, new { Id = updateDocument.Id });
-            foreach (var m in updateDocument.MotivationalThematicClassifications)
-            {
-                var sqlAddRels_Doc_M = @"INSERT INTO [dbo].[Rels_Document_MotivationalThematicClassification]
-                    ([DocumentId],[MotivationalThematicClassificationId])
-                VALUES
-                    (@IdDoc,@IdM)";
-                db.Query<int>(sqlAddRels_Doc_M, new { IdDoc = updateDocument.Id, IdM = m.Id });
-            }
-            var sqlDelT = @"DELETE FROM [dbo].[Rels_Document_Tag] WHERE [DocumentId]=@Id";
-            db.Query<int>(sqlDelT, new { Id = updateDocument.Id });
-            foreach (var t in updateDocument.Tags)
-            {
-                var sqlAddRels_Doc_T = @"INSERT INTO [dbo].[Rels_Document_Tag]
-                    ([DocumentId],[TagId])
-                VALUES
-                    (@IdDoc,@IdT)";
-                db.Query<int>(sqlAddRels_Doc_T, new { IdDoc = updateDocument.Id, IdT = t.Id });
-            }
-            */
+
+
+                
+                var sqlDelMTC = @"DELETE FROM [dbo].[Rels_Document_MotivationalThematicClassification] WHERE [DocumentId]=@Id";
+                db.Query<int>(sqlDelMTC, new { Id = updateDocument.Id });
+                foreach (var m in updateDocument.MotivationalThematicClassifications)
+                {
+                    var sqlAddRels_Doc_M = @"INSERT INTO [dbo].[Rels_Document_MotivationalThematicClassification]
+                        ([DocumentId],[MotivationalThematicClassificationId])
+                    VALUES
+                        (@IdDoc,@IdM)";
+                    db.Query<int>(sqlAddRels_Doc_M, new { IdDoc = updateDocument.Id, IdM = m.Id });
+                }
+
+                */
 
             return GetDocument(updateDocument.Id);
         }
@@ -211,53 +249,13 @@ VALUES (@IdDoc,@IdInf)", new {IdDoc = updateDocument.Id, IdInf = informantId});
                 FileId=document.FileId
             }).Single();
             Console.WriteLine("Added id: " + id);
-            
-            /*
-            foreach (var f in document.Folklorists)
-            {
-                var sqlAddRels_Doc_F = @"INSERT INTO [dbo].[Rels_Document_Folklorist]
-                    ([DocumentId],[FolkloristId])
-                VALUES
-                    (@IdDoc,@IdFol)";
-                db.Query<int>(sqlAddRels_Doc_F, new { IdDoc = id, IdFol = f.Id });
-            }
-            foreach (var i in document.Informants)
-            {
-                var sqlAddRels_Doc_I = @"INSERT INTO [dbo].[Rels_Document_Informant]
-                    ([DocumentId],[InformantId])
-                VALUES
-                    (@IdDoc,@IdInf)";
-                db.Query<int>(sqlAddRels_Doc_I, new { IdDoc = id, IdInf = i.Id });
-            }
-
-            foreach (var g in document.Genres)
-            {
-                var sqlAddRels_Doc_G = @"INSERT INTO [dbo].[Rels_Document_Genre]
-                    ([DocumentId],[GenreId])
-                VALUES
-                    (@IdDoc,@IdG)";
-                db.Query<int>(sqlAddRels_Doc_G, new { IdDoc = id, IdG = g.Id });
-            }
-
-            foreach (var m in document.MotivationalThematicClassifications)
-            {
-                var sqlAddRels_Doc_M = @"INSERT INTO [dbo].[Rels_Document_MotivationalThematicClassification]
-                    ([DocumentId],[MotivationalThematicClassificationId])
-                VALUES
-                    (@IdDoc,@IdM)";
-                db.Query<int>(sqlAddRels_Doc_M, new { IdDoc = id, IdM = m.Id });
-            }
-
-            foreach (var t in document.Tags)
-            {
-                var sqlAddRels_Doc_T = @"INSERT INTO [dbo].[Rels_Document_Tag]
-                    ([DocumentId],[TagId])
-                VALUES
-                    (@IdDoc,@IdT)";
-                db.Query<int>(sqlAddRels_Doc_T, new { IdDoc = id, IdT = t.Id });
-            }
-            */
             return GetDocument(id);
+        }
+        public IEnumerable<Document> SearchDocument(string str)
+        {
+            var s = "%" + str + "%";
+            var sql = @"SELECT * FROM [dbo].[Documents] WHERE Title like @s OR Content like @s";
+            return db.Query<Document>(sql, new { s = s });
         }
         #endregion
         #region Folklorist
@@ -301,6 +299,23 @@ VALUES (@IdDoc,@IdInf)", new {IdDoc = updateDocument.Id, IdInf = informantId});
                 YearOfBirth = newInformant.YearOfBirth
             }).Single();
             return GetInformant(id);
+        }
+        public MotivationalThematicClassification AddMotivationalThematicClassification(MotivationalThematicClassification newMTC)
+        {
+            var sql = @"INSERT INTO [dbo].[MotivationalThematicClassifications] ([Code],[ClassificationName]) VALUES
+           (@Code,@ClassificationName);SELECT CAST(SCOPE_IDENTITY() as int)";
+            var id = db.Query<int>(sql, new
+            {
+                Code = newMTC.Code,
+                ClassificationName = newMTC.ClassificationName
+            }).Single();
+            return GetMotivationalThematicClassification(id);
+        }
+
+        public MotivationalThematicClassification GetMotivationalThematicClassification(int id)
+        {
+            var sql = @"SELECT * FROM [dbo].[MotivationalThematicClassifications] WHERE Id=@Id";
+            return db.Query<MotivationalThematicClassification>(sql, new { id }).Single();
         }
         public Informant GetInformant(int id)
         {

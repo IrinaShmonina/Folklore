@@ -6,6 +6,11 @@ export default class DocumentApi {
     return await (response.json() as Promise<FolkDocument[]>);
   }
 
+  static async searchDocuments(param: string): Promise<FolkDocument[]> {
+    const response = await fetch(`api/document/search?param=${param}`);
+    return await (response.json() as Promise<FolkDocument[]>);
+  }
+
   static async getDocument(id: number): Promise<FolkDocument> {
     const response = await fetch(`api/document?id=${id}`);
     return await (response.json() as Promise<FolkDocument>);

@@ -1,8 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import PlaceMap from '../components/PlaceMap';
 
 const Home = () => (
   <div>
+    <div>
+      <PlaceMap onPlaceInfo={placeInfo => {console.log(placeInfo.addressLine)}} />
+    </div>
     <h1>Hello, IRINA!</h1>
     <p>Welcome to your new single-page application, built with:</p>
     <ul>

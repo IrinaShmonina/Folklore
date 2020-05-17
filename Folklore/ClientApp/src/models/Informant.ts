@@ -1,5 +1,5 @@
 export interface Informant {
     id?: number;
-    fio?: string;
+    fio: string;
     yearOfBirth?: number;
 }

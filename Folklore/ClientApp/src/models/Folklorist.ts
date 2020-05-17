@@ -1,4 +1,4 @@
 export interface Folklorist {
-    id: number;
+    id?: number;
     fio: string;
 }

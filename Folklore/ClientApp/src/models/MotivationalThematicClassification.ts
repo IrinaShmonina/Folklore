@@ -1,5 +1,5 @@
 export interface MotivationalThematicClassification {
-    id: number;
+    id?: number;
     code: string;
     classificationName: string;
 }

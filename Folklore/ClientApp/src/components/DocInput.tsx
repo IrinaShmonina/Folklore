@@ -3,12 +3,17 @@ import { Col, Label, InputGroup } from 'reactstrap';
 
 export interface DocInputProps {
     label: string;
+    visible?: boolean;
   }
 
 export class DocInput extends React.Component<DocInputProps> {
   render() {
-    const { label } = this.props;
-    return (<InputGroup style={{ marginBottom: "20px" }}>
+    let { label, visible } = this.props;
+    if (visible === undefined) {
+      visible = true;
+    }
+    if (visible) {
+      return (<InputGroup style={{ marginBottom: "20px" }}>
       <Col sm={2}>
         <Label>{label}</Label>
       </Col>
@@ -16,5 +21,7 @@ export class DocInput extends React.Component<DocInputProps> {
         {this.props.children}
       </Col>
     </InputGroup>);
+    }
+    return <></>;
   }
 }

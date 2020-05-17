@@ -6,7 +6,7 @@ import { Folklorist } from "./Folklorist";
 
 export default interface FolkDocument {
     id?: number;
-    title?: string;
+    title: string;
     content?: string;
     placeName?: string;
     placeLatitude?: number;
