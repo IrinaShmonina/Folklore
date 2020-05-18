@@ -1,4 +1,6 @@
 import FolkDocument from "../models/Document";
+import { Genre } from "../models/Genre";
+import { Informant } from "../models/Informant";
 
 export default class DocumentApi {
   static async getAllDocuments(): Promise<FolkDocument[]> {
@@ -6,8 +8,8 @@ export default class DocumentApi {
     return await (response.json() as Promise<FolkDocument[]>);
   }
 
-  static async searchDocuments(param: string): Promise<FolkDocument[]> {
-    const response = await fetch(`api/document/search?param=${param}`);
+  static async searchDocuments(param: string, genre: string, place: string,yearOfRecord:string,informant:string): Promise<FolkDocument[]> {
+    const response = await fetch(`api/document/search?param=${param}&genre=${genre}&place=${place}&yearOfRecord=${yearOfRecord}&informant=${informant}`);
     return await (response.json() as Promise<FolkDocument[]>);
   }
 
@@ -53,5 +55,17 @@ export default class DocumentApi {
     var json = await (response.json() as Promise<{ id: string; }>);
 
     return json.id;
+  }
+  static async getAllGenres(): Promise<Genre[]> {
+    const response = await fetch('api/genre');
+    return await (response.json() as Promise<Genre[]>);
+  }
+  static async searchGenres(genre: string): Promise<Genre[]> {
+    const response = await fetch(`api/genre/search?genre=${genre}`);
+    return await (response.json() as Promise<Genre[]>);
+  }
+  static async searchInformants(informant: string): Promise<Informant[]> {
+    const response = await fetch(`api/informant/search?informant=${informant}`);
+    return await (response.json() as Promise<Informant[]>);
   }
 }

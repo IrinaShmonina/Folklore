@@ -18,7 +18,8 @@ namespace Folklore.Storages
         Genres AddGenre(Genres newGenres);
         Document GetDocument(int id);
         Document UpdateDocument(Document updateDocument);
-        IEnumerable<Informant> GetTopInformants(string s);
-        IEnumerable<Document> SearchDocument(string s);
+        IEnumerable<Informant> SearchInformants(string s);
+        IEnumerable<Document> SearchDocument(string s, string g, string p, string y,string i);
+        IEnumerable<Genres> SearchGenres(string genre);
     }
 }

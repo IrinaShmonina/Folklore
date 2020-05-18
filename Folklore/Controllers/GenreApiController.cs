@@ -20,6 +20,12 @@ namespace Folklore.Controllers
         {
             return storage.GetAllGenres();
         }
+        [Route("search")]
+        [HttpGet]
+        public IEnumerable<Genres> SearchGenres([FromQuery] string genre)
+        {
+            return storage.SearchGenres(genre);
+        }
 
         [HttpPost]
         public Genres AddGenre([FromBody] Genres newGenres)

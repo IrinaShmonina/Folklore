@@ -251,11 +251,35 @@ VALUES (@IdDoc,@IdM)", new { IdDoc = updateDocument.Id, IdM = mtcIds });
             Console.WriteLine("Added id: " + id);
             return GetDocument(id);
         }
-        public IEnumerable<Document> SearchDocument(string str)
+        public IEnumerable<Document> SearchDocument(string str, string genre, string place, string yearOfRecord,string informant)
         {
             var s = "%" + str + "%";
-            var sql = @"SELECT * FROM [dbo].[Documents] WHERE Title like @s OR Content like @s";
-            return db.Query<Document>(sql, new { s = s });
+            var sql = @"SELECT * FROM [dbo].[Documents] WHERE (Title like @s OR Content like @s)";
+            if (!string.IsNullOrEmpty(genre))
+            {
+                sql += @"AND Id in 
+(SELECT[DocumentId] FROM[dbo].[Rels_Document_Genre] WHERE[GenreId] in
+    (SELECT[Id] FROM[dbo].[Genres] WHERE[GenreName] like @g))";
+            }
+            var g = "%" + genre + "%";
+            if (!string.IsNullOrEmpty(place))
+            {
+                sql += @"AND PlaceName like @p";
+            }
+            var p = "%" + place + "%";
+            if (!string.IsNullOrEmpty(yearOfRecord))
+            {
+                sql += @"AND YearOfRecord=@y";
+            }
+            int.TryParse(yearOfRecord, out var y);
+            if (!string.IsNullOrEmpty(informant))
+            {
+                sql += @"AND Id in 
+(SELECT[DocumentId] FROM[dbo].[Rels_Document_Informant] WHERE [InformantId] in
+    (SELECT[Id] FROM [dbo].[Informants] WHERE [FIO] like @i))";
+            }
+            var i = "%" + informant + "%";
+            return db.Query<Document>(sql, new { s = s ,g = g, p=p, y=y,i=i});
         }
         #endregion
         #region Folklorist
@@ -324,9 +348,10 @@ VALUES (@IdDoc,@IdM)", new { IdDoc = updateDocument.Id, IdM = mtcIds });
 
         }
 
-        public IEnumerable<Informant> GetTopInformants(string s)
+        public IEnumerable<Informant> SearchInformants(string str)
         {
-            var sql = @"SELECT top(10) *  FROM [dbo].[Informants]  WHERE FIO like '%@s%'";
+            var sql = @"SELECT  *  FROM [dbo].[Informants]  WHERE FIO like @s";
+            var s = '%' + str + '%';
 
             return db.Query<Informant>(sql, new{s=s});
         }
@@ -375,6 +400,15 @@ VALUES (@IdDoc,@IdM)", new { IdDoc = updateDocument.Id, IdM = mtcIds });
         {
             var sql = @"SELECT * FROM [dbo].[Genres] WHERE Id=@Id";
             return db.Query<Genres>(sql, new { id }).Single();
+        }
+
+        public IEnumerable<Genres> SearchGenres(string str)
+        {
+            var s = "%" + str + "%";
+            var sql = @"SELECT [Id],[GenreName]  FROM [dbo].[Genres]
+where [GenreName] like @s";
+            
+            return db.Query<Genres>(sql, new { s = s});
         }
         #endregion
     }

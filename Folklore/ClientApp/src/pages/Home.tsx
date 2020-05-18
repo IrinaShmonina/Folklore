@@ -1,12 +1,21 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import PlaceMap from '../components/PlaceMap';
+import {Typeahead} from 'react-bootstrap-typeahead';
 
 const Home = () => (
   <div>
-    <div>
-      <PlaceMap onPlaceInfo={placeInfo => {console.log(placeInfo.addressLine)}} />
-    </div>
+    <Typeahead
+      id="labelkey-example"
+      labelKey={(option) => `${option.firstName} ${option.lastName}`}
+      options={[
+        { firstName: 'Art', lastName: 'Blakey' },
+        { firstName: 'John', lastName: 'Coltrane' },
+        { firstName: 'Miles', lastName: 'Davis' },
+        { firstName: 'Herbie', lastName: 'Hancock' },
+        { firstName: 'Charlie', lastName: 'Parker' },
+        { firstName: 'Tony', lastName: 'Williams' },
+      ]}
+      placeholder="Who's the coolest cat?"
+    />
     <h1>Hello, IRINA!</h1>
     <p>Welcome to your new single-page application, built with:</p>
     <ul>

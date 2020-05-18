@@ -11,7 +11,7 @@ export default interface FolkDocument {
     placeName?: string;
     placeLatitude?: number;
     placeLongitude?: number;
-    yearOfRecord?: number;
+    yearOfRecord: number;
     additionalInformation?: string;
     fileName?: string;
     fileId?: string;
@@ -38,6 +38,7 @@ export function createEmptyDoc(): FolkDocument {
         informants: [],
         genres: [],
         motivationalThematicClassifications: [],
-        tags: []
+        tags: [],
+        yearOfRecord:0
     }
 }

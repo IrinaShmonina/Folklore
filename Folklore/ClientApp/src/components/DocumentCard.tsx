@@ -570,6 +570,18 @@ renderMTC() {
         </DocInput>
 
         <DocInput 
+        visible = {doc.yearOfRecord!=0||editing}
+        label="Год записи">
+          <Input readOnly={!editing} type="text" value={doc.yearOfRecord} onChange={x => this.changeDocument({ yearOfRecord: parseInt(x.target.value, 10) })} />
+        </DocInput>
+
+        <DocInput 
+          visible={doc.content!=''||editing} 
+          label="Содержание">
+          <Input readOnly={!editing} style={{ height: "200px", resize: "none" }} type="textarea" value={doc.content} onChange={x => this.changeDocument({ content: x.target.value })} />
+        </DocInput>
+
+        <DocInput 
           visible={doc.informants.length>0||editing}
           label="Информанты">
           {this.renderInformant()}
@@ -579,12 +591,6 @@ renderMTC() {
           visible={doc.folklorists.length>0||editing}
           label="Фольклористы">
           {this.renderFolklorist()}
-        </DocInput>
-
-        <DocInput 
-          visible={doc.content!=''||editing} 
-          label="Содержание">
-          <Input readOnly={!editing} style={{ height: "200px", resize: "none" }} type="textarea" value={doc.content} onChange={x => this.changeDocument({ content: x.target.value })} />
         </DocInput>
 
         <DocInput 

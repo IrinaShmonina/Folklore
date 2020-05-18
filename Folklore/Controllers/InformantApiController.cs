@@ -21,11 +21,11 @@ namespace Folklore.Controllers
             return storage.GetAllInformants();
         }
 
-        [Route("top")]
+        [Route("search")]
         [HttpGet]
-        public IEnumerable<Informant> GetTopInformants([FromQuery] string fio)
+        public IEnumerable<Informant> SearchInformants([FromQuery] string informant)
         {
-            return storage.GetTopInformants(fio);
+            return storage.SearchInformants(informant);
         }
 
         [HttpPost]
