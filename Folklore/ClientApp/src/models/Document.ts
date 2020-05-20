@@ -22,6 +22,7 @@ export default interface FolkDocument {
     genres: Genre[];
     motivationalThematicClassifications: MotivationalThematicClassification[];
     tags: Tag[];
+    morph: string;
 }
 
 export function createEmptyDoc(): FolkDocument {
@@ -39,6 +40,7 @@ export function createEmptyDoc(): FolkDocument {
         genres: [],
         motivationalThematicClassifications: [],
         tags: [],
-        yearOfRecord:0
+        yearOfRecord: 2020,
+        morph:''
     }
 }

@@ -26,5 +26,11 @@ namespace Folklore.Controllers
         {
             return storage.AddTag(newTag);
         }
+        [Route("search")]
+        [HttpGet]
+        public IEnumerable<Tag> SearchTags([FromQuery] string tag)
+        {
+            return storage.SearchTags(tag);
+        }
     }
 }

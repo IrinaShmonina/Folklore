@@ -21,5 +21,10 @@ namespace Folklore.Storages
         IEnumerable<Informant> SearchInformants(string s);
         IEnumerable<Document> SearchDocument(string s, string g, string p, string y,string i);
         IEnumerable<Genres> SearchGenres(string genre);
+        IEnumerable<Folklorist> SearchFolklorist(string folklorist);
+        IEnumerable<MotivationalThematicClassification> GetAllMTCs();
+        IEnumerable<MotivationalThematicClassification> SearchMTCs(string mtc, string code);
+        MotivationalThematicClassification AddMTC(MotivationalThematicClassification newMtc);
+        IEnumerable<Tag> SearchTags(string tag);
     }
 }

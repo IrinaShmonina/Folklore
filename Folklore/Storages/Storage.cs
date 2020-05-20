@@ -21,7 +21,7 @@ namespace Folklore.Storages
 
         public IEnumerable<Document> GetAllDocuments()
         {
-            return db.Query<Document>(@"Select * From [dbo].[Documents] WHERE Deleted = 0");
+            return db.Query<Document>(@"Select * From [dbo].[Documents] WHERE Deleted = 0 order by [CreatedAt] desc");
         }
 
         public Document GetDocument(int id)
@@ -73,6 +73,12 @@ Where d.Id=@Id";
             var tags = db.Query<Tag>(sqlrdt, new { Id = id });
             doc.Tags.AddRange(tags);
 
+            var m = db.Query<string>(@"
+Select Analysis From [dbo].[Morph] d 
+Where d.DocumentId=@Id
+", new { Id = id }).FirstOrDefault();
+            
+            doc.Morph = m;
             return doc;
         }
 
@@ -197,29 +203,11 @@ VALUES (@IdDoc,@IdG)", new {IdDoc = updateDocument.Id, IdG = genresId});
                 mtcIds.Add(AddMotivationalThematicClassification(mtc).Id.Value);
             }
 
-            foreach (var mtcId in mtcIds)
-            {
-                db.Execute(@"
-INSERT INTO [dbo].[Rels_Document_MotivationalThematicClassification] ([DocumentId],[MotivationalThematicClassificationId])
-VALUES (@IdDoc,@IdM)", new { IdDoc = updateDocument.Id, IdM = mtcIds });
 
-            }
-            /*
-
-
-                
-                var sqlDelMTC = @"DELETE FROM [dbo].[Rels_Document_MotivationalThematicClassification] WHERE [DocumentId]=@Id";
-                db.Query<int>(sqlDelMTC, new { Id = updateDocument.Id });
-                foreach (var m in updateDocument.MotivationalThematicClassifications)
-                {
-                    var sqlAddRels_Doc_M = @"INSERT INTO [dbo].[Rels_Document_MotivationalThematicClassification]
-                        ([DocumentId],[MotivationalThematicClassificationId])
-                    VALUES
-                        (@IdDoc,@IdM)";
-                    db.Query<int>(sqlAddRels_Doc_M, new { IdDoc = updateDocument.Id, IdM = m.Id });
-                }
-
-                */
+            db.Execute(@"IF EXISTS(SELECT * FROM [dbo].[Morph] WHERE [DocumentId] = @id)
+   UPDATE [dbo].[Morph] SET [Analysis] = @m WHERE [DocumentId] = @id
+ELSE INSERT INTO [dbo].[Morph] ([DocumentId],[Analysis]) VALUES (@id,@m)", new { id = updateDocument.Id, m = updateDocument.Morph });
+            
 
             return GetDocument(updateDocument.Id);
         }
@@ -248,7 +236,11 @@ VALUES (@IdDoc,@IdM)", new { IdDoc = updateDocument.Id, IdM = mtcIds });
                 FileName = document.FileName,
                 FileId=document.FileId
             }).Single();
-            Console.WriteLine("Added id: " + id);
+            var s = @"INSERT INTO [dbo].[Morph] ([DocumentId],[Analysis])
+     VALUES (@id,@m)";
+            db.Execute(s, new { id = document.Id, m = document.Morph });
+
+            UpdateDocument(document);
             return GetDocument(id);
         }
         public IEnumerable<Document> SearchDocument(string str, string genre, string place, string yearOfRecord,string informant)
@@ -292,7 +284,7 @@ VALUES (@IdDoc,@IdM)", new { IdDoc = updateDocument.Id, IdM = mtcIds });
 
         public Folklorist AddFolklorist(Folklorist newFolklorist)
         {
-            var sql = @"INSERT INTO [dbo].[Folklorists] ([FIO]]) VALUES (@FIO);SELECT CAST(SCOPE_IDENTITY() as int)";
+            var sql = @"INSERT INTO [dbo].[Folklorists] ([FIO]) VALUES (@FIO);SELECT CAST(SCOPE_IDENTITY() as int)";
             var id = db.Query<int>(sql, new
             {
                 FIO = newFolklorist.FIO
@@ -304,6 +296,14 @@ VALUES (@IdDoc,@IdM)", new { IdDoc = updateDocument.Id, IdM = mtcIds });
         {
             var sql = @"SELECT * FROM [dbo].[Folklorists] WHERE Id=@Id";
             return db.Query<Folklorist>(sql, new { id }).Single();
+        }
+
+        public IEnumerable<Folklorist> SearchFolklorist(string folklorist)
+        {
+            var sql = @"SELECT  *  FROM [dbo].[Folklorists]  WHERE FIO like @s";
+            var s = '%' + folklorist + '%';
+
+            return db.Query<Folklorist>(sql, new { s = s });
         }
         #endregion
         #region Informant
@@ -379,6 +379,15 @@ VALUES (@IdDoc,@IdM)", new { IdDoc = updateDocument.Id, IdM = mtcIds });
             var sql = @"SELECT * FROM [dbo].[Tags] WHERE Id=@Id";
             return db.Query<Tag>(sql, new { id }).Single();
         }
+
+        public IEnumerable<Tag> SearchTags(string tag)
+        {
+            var s = "%" + tag + "%";
+            var sql = @"SELECT *  FROM [dbo].[Tags]
+where [TagName] like @s";
+
+            return db.Query<Tag>(sql, new { s = s });
+        }
         #endregion
         #region Genres
         public IEnumerable<Genres> GetAllGenres()
@@ -411,5 +420,41 @@ where [GenreName] like @s";
             return db.Query<Genres>(sql, new { s = s});
         }
         #endregion
+
+        public IEnumerable<MotivationalThematicClassification> GetAllMTCs()
+        {
+            var sql = @"SELECT * FROM [dbo].[MotivationalThematicClassifications]";
+
+            return db.Query<MotivationalThematicClassification>(sql);
+        }
+
+        public IEnumerable<MotivationalThematicClassification> SearchMTCs(string mtc, string code)
+        {
+            var sql = @"SELECT *
+  FROM [dbo].[MotivationalThematicClassifications]
+  Where [ClassificationName] like @m or [Code] like @c";
+            var m = '%' + mtc + '%';
+            var c = '%' + code + '%';
+
+            return db.Query<MotivationalThematicClassification>(sql, new { m = m,c=c });
+        }
+
+        public MotivationalThematicClassification AddMTC(MotivationalThematicClassification newMtc)
+        {
+            var sql = @"INSERT INTO [dbo].[MotivationalThematicClassifications] ([Code],[ClassificationName])
+VALUES (@Code,@ClassificationName);SELECT CAST(SCOPE_IDENTITY() as int)";
+            var id = db.Query<int>(sql, new
+            {
+                Code = newMtc.Code,
+                ClassificationName = newMtc.ClassificationName
+            }).Single();
+            return GetMTC(id);
+        }
+
+        public MotivationalThematicClassification GetMTC(int id)
+        {
+            var sql = @"SELECT * FROM [dbo].[MotivationalThematicClassifications] WHERE Id=@Id";
+            return db.Query<MotivationalThematicClassification>(sql, new { id }).Single();
+        }
     }
 }

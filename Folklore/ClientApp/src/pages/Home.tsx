@@ -3,33 +3,17 @@ import {Typeahead} from 'react-bootstrap-typeahead';
 
 const Home = () => (
   <div>
-    <Typeahead
-      id="labelkey-example"
-      labelKey={(option) => `${option.firstName} ${option.lastName}`}
-      options={[
-        { firstName: 'Art', lastName: 'Blakey' },
-        { firstName: 'John', lastName: 'Coltrane' },
-        { firstName: 'Miles', lastName: 'Davis' },
-        { firstName: 'Herbie', lastName: 'Hancock' },
-        { firstName: 'Charlie', lastName: 'Parker' },
-        { firstName: 'Tony', lastName: 'Williams' },
-      ]}
-      placeholder="Who's the coolest cat?"
-    />
-    <h1>Hello, IRINA!</h1>
-    <p>Welcome to your new single-page application, built with:</p>
-    <ul>
-      <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
-      <li><a href='https://facebook.github.io/react/'>React</a> and <a href='https://redux.js.org/'>Redux</a> for client-side code</li>
-      <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>
-    </ul>
-    <p>To help you get started, we've also set up:</p>
-    <ul>
-      <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
-      <li><strong>Development server integration</strong>. In development mode, the development server from <code>create-react-app</code> runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
-      <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration produces minified, efficiently bundled JavaScript files.</li>
-    </ul>
-    <p>The <code>ClientApp</code> subdirectory is a standard React application based on the <code>create-react-app</code> template. If you open a command prompt in that directory, you can run <code>npm</code> commands such as <code>npm test</code> or <code>npm install</code>.</p>
+    
+    <h1>О проекте</h1>
+    <p> На протяжении многих лет фольклорная практика была традиционным летним заданием студентов филологических факультетов в разных вузах нашей страны. В Уральском Федеральном университете хранятся и материалы экспедиций более чем пятидесятилетней давности, и результаты работы студентов в XXI веке. По обширному архиву Свердловской области можно составить географию фольклорных практик в разные годы. Встречаются среди собраний и тексты, записанные в маленьких деревнях нашего региона. При взгляде на многочисленные названия населенных пунктов возникает вопрос, все ли из них существуют в наши дни. Используя результаты Всероссийской переписи населения 2010 г, мы выяснили, что среди сельских населенных пунктов, представленных в описях 1960-1970-х годов, пятьдесят один можно отнести к категории «исчезающие»1. При составлении карты, указывающей на расположение подобных населенных пунктов, было обнаружено «созвездие» исчезающих деревень на границе Алапаевского и Верхотурского районов. Всего было насчитано 13 населенных пунктов, находящихся под угрозой исчезновения. Алапаевский район: дер. Кузина, Маскалка, Перевалова, Пурегова, Толстова, Трошкова, Турутина. Верхотурский район: дер. Бочкарева, Запольская, Лебедева, Малахова, Отраднова, Путимка.</p>
+
+<p>Можно сказать, что тексты, собранные студентами более полувека назад, являются единственной памятью о деревнях, в которых сейчас почти никто не живет.</p>
+
+<p>Чтобы сохранить эти материалы и ввести их в научный оборот, нами был создан этот корпус текстов. Он позволяет осуществлять поиск по метатекстовым данным (жанр текста, год и место сбора, возраст информанта). Также возможен поиск по отдельным словоформам.</p>
+
+<p>Стоит отметить, что при создании корпуса был выполнен морфологический анализ всех словоформ. Первичный анализ был осуществлен при помощи программы MyStem, разработанной компанией «Яндекс». Анализ диалектных форм был выполнен вручную.</p>
+
+<p>Таким образом, данный корпус позволит осуществлять поиск текстов по базовым параметрам, а также даст представление о морфологических особенностях, которые прослеживаются в выбранном нами материале.</p>
   </div>
 );
 

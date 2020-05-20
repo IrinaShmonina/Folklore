@@ -22,6 +22,7 @@ namespace Folklore.Models
         public List<Genres> Genres { get; set; } = new List<Genres>();
         public List<MotivationalThematicClassification> MotivationalThematicClassifications { get; set; } = new List<MotivationalThematicClassification>();
         public List<Tag> Tags { get; set; } = new List<Tag>();
+        public string Morph { get; set; }
 
         /*
         public Document(

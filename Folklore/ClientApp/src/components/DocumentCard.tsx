@@ -10,12 +10,15 @@ import { Folklorist } from '../models/Folklorist';
 import { Genre } from '../models/Genre';
 import { MotivationalThematicClassification } from '../models/MotivationalThematicClassification';
 import PlaceMap, { PlaceInfo } from './PlaceMap';
+import { AsyncTypeahead, TypeaheadModel, TypeaheadLabelKey } from 'react-bootstrap-typeahead';
+import './card.css';
 
 export interface DocumentCardProps {
   doc: FolkDocument;
   editing: boolean;
   onDocSave: (doc: FolkDocument) => Promise<void>;
 }
+
 
 export interface DocumentCardState {
   doc: FolkDocument;
@@ -25,9 +28,18 @@ export interface DocumentCardState {
   newTag: Tag;
   newGenre: Genre;
   newMTC: MotivationalThematicClassification;
-  valid: boolean
+  valid: boolean;
+  informants:Informant[];
+  searchLoadingInformant:boolean;
+  searchLoadingFolklorist:boolean;
+  searchLoadingTag:boolean;
+  searchLoadingGenre:boolean;
+  searchLoadingMTC:boolean;
+  folklorists:Folklorist[];
+  genres:Genre[];
+  mtcs:MotivationalThematicClassification[];
+  tags:Tag[]
 }
-
 
 export default class DocumentCard extends React.Component<DocumentCardProps, DocumentCardState> {
   constructor(props: DocumentCardProps, state: DocumentCardState) {
@@ -52,7 +64,17 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
         code: '',
         classificationName: ''
       },
-      valid: false
+      valid: false,
+      informants:[],
+      searchLoadingInformant:false,
+      searchLoadingFolklorist:false,
+      searchLoadingTag:false,
+      searchLoadingGenre:false,
+      searchLoadingMTC:false,
+      folklorists:[],
+      genres:[],
+      mtcs:[],
+      tags:[]
     };
   }
 
@@ -73,6 +95,9 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     
     if (doc.title==''||doc.title.length>200){
       inputs.push('title')
+    }
+    if (doc.yearOfRecord<=1000){
+      inputs.push('yearOfRecord')
     }
     return inputs
 
@@ -149,9 +174,15 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     });
   }
 
-  renderInformant() {
-    const { doc, editing, newInformant } = this.state;
+  async searchInformants(q:string){
+    this.setState({searchLoadingInformant:true})
+    this.setState({informants: await DocumentApi.searchInformants(q)})
+    this.setState({searchLoadingInformant:false})
+  }
 
+  renderInformant() {
+    const { doc, editing, newInformant,informants,searchLoadingInformant } = this.state;
+    
     const informantComponents = doc.informants.map((informant, i) => (
       <InputRow key={i}>
         <Col sm={8}>
@@ -169,16 +200,33 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     ));
 
     let recommendation = this.checkMinForms();
+    let ref = React.createRef<any>()
     const editingComponent = (
       <InputRow>
         <Col sm={8}>
-          <Input type="text" placeholder="ФИО" value={newInformant.fio} onChange={e => this.changeNewInformant({ fio: e.target.value })} />
-        </Col>
+        <AsyncTypeahead
+        id="labelkey-example"
+        labelKey="fio"
+        onSearch={(q) => this.searchInformants(q)}
+        isLoading={searchLoadingInformant}
+        minLength={3}
+        options={informants}
+        placeholder="ФИО"
+        onInputChange={e => this.changeNewInformant({ fio: e })}
+        onChange={e => e.length>0?this.changeNewInformant({ id:e[0].id, fio: e[0].fio, yearOfBirth: e[0].yearOfBirth}):''}
+        renderMenuItemChildren={(option) => (
+          <div>
+          <span> {option.fio}</span>
+          </div>
+        )}
+        ref={ref}
+      /></Col>
+        
         <Col sm={2}>
           <Input type="number" placeholder="Год" value={newInformant.yearOfBirth} onChange={e => this.changeNewInformant({ yearOfBirth: parseInt(e.target.value, 10) })} />
         </Col>
         <Col sm={2}>
-          <Button outline color="primary" style={{ width: "100%" }} disabled={recommendation.includes('newInformant')} onClick={() => this.pushNewInformant()}>Добавить</Button>
+          <Button outline color="primary" style={{ width: "100%" }} disabled={recommendation.includes('newInformant')} onClick={() => {this.pushNewInformant();ref.current.clear();}}>Добавить</Button>
         </Col>
       </InputRow>
     );
@@ -226,8 +274,15 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     });
   }
 
+  async searchFolklorists(q:string){
+    this.setState({searchLoadingFolklorist:true})
+    this.setState({folklorists: await DocumentApi.searchFolklorist(q)})
+    this.setState({searchLoadingFolklorist:false})
+  }
+
+
   renderFolklorist() {
-    const { doc, editing, newFolklorist } = this.state;
+    const { doc, editing, newFolklorist, searchLoadingFolklorist,folklorists } = this.state;
 
     const folkloristComponents = doc.folklorists.map((folklorists, i) => (
       <InputRow key={i}>
@@ -243,13 +298,29 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     ));
 
     let recommendation = this.checkMinForms();
+    let ref = React.createRef<any>()
     const editingComponent = (
       <InputRow>
         <Col sm={10}>
-          <Input type="text" placeholder="ФИО" value={newFolklorist.fio} onChange={e => this.changeNewFolklorist({ fio: e.target.value })} />
-        </Col>
+        <AsyncTypeahead
+        id="labelkey-example"
+        labelKey="fio"
+        onSearch={(q) => this.searchFolklorists(q)}
+        isLoading={searchLoadingFolklorist}
+        minLength={3}
+        options={folklorists}
+        placeholder="ФИО"
+        onInputChange={e => this.changeNewFolklorist({ fio: e })}
+        onChange={e => e.length>0?this.changeNewFolklorist({ id:e[0].id, fio: e[0].fio}):''}
+        renderMenuItemChildren={(option) => (
+          <div>
+          <span> {option.fio}</span>
+          </div>
+        )}
+        ref={ref}
+      /></Col>
         <Col sm={2}>
-          <Button outline color="primary" style={{ width: "100%" }} disabled={recommendation.includes('newFolklorist')} onClick={() => this.pushNewFolklorist()}>Добавить</Button>
+          <Button outline color="primary" style={{ width: "100%" }} disabled={recommendation.includes('newFolklorist')} onClick={() => {this.pushNewFolklorist();ref.current.clear();}}>Добавить</Button>
         </Col>
       </InputRow>
     );
@@ -313,20 +384,46 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
       {tagName}
     </Badge>);
   }
+
+  async searchTags(q:string){
+    this.setState({searchLoadingTag:true})
+    this.setState({tags: await DocumentApi.searchTags(q)})
+    this.setState({searchLoadingTag:false})
+  }
+  
+
   renderTags() {
-    const { doc, editing, newTag } = this.state;
-    let tags = doc.tags.map((tag, i) =>
+    const { doc, editing, newTag, tags,searchLoadingTag } = this.state;
+    let t = doc.tags.map((tag, i) =>
       this.makeBadge(tag.tagName, i)
     );
     let recommendation = this.checkMinForms();
+    let ref = React.createRef<any>()
     let editingComponent = (
 
       <InputRow>
+        
         <Col sm={10}>
-          <Input type="text" placeholder="Тег" value={newTag.tagName} onChange={x => this.changeNewTag({ tagName: x.target.value })} />
-        </Col>
+        <AsyncTypeahead
+        id="labelkey-example"
+        labelKey="tagName"
+        onSearch={(q) => this.searchTags(q)}
+        isLoading={searchLoadingTag}
+        minLength={3}
+        options={tags}
+        placeholder="ФИО"
+        onInputChange={e => this.changeNewTag({ tagName: e })}
+        onChange={e => e.length>0?this.changeNewTag({ id:e[0].id, tagName: e[0].tagName}):''}
+        renderMenuItemChildren={(option) => (
+          <div>
+          <span> {option.tagName}</span>
+          </div>
+        )}
+        ref={ref}
+        /></Col>
+        
         <Col sm={2}>
-          <Button outline color="primary" style={{ width: "100%" }} disabled={recommendation.includes('newTag')} onClick={() => this.pushNewTag()}>Добавить</Button>
+          <Button outline color="primary" style={{ width: "100%" }} disabled={recommendation.includes('newTag')} onClick={() => {this.pushNewTag();ref.current.clear();}}>Добавить</Button>
         </Col>
       </InputRow>
     );
@@ -334,7 +431,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     return (
       <React.Fragment>
         <InputRow>
-          <Col>{tags}
+          <Col>{t}
 
           </Col>
 
@@ -395,20 +492,52 @@ makeBadgeGenre(genreName: string, i: number) {
     {genreName}
   </Badge>);
 }
+
+async searchGenres(q:string){
+  this.setState({searchLoadingGenre:true})
+  this.setState({genres: await DocumentApi.searchGenres(q)})
+  this.setState({searchLoadingGenre:false})
+}
+
 renderGenres() {
-  const { doc, editing, newGenre } = this.state;
-  let genres = doc.genres.map((genre, i) =>
+  const { doc, editing, newGenre, searchLoadingGenre, genres } = this.state;
+  let g = doc.genres.map((genre, i) =>
     this.makeBadgeGenre(genre.genreName, i)
   );
   let recommendation = this.checkMinForms();
+  let ref = React.createRef<any>()
   let editingComponent = (
 
     <InputRow>
       <Col sm={10}>
-        <Input type="text" placeholder="Жанр" value={newGenre.genreName} onChange={x => this.changeNewGenre({ genreName: x.target.value })} />
-      </Col>
+        <AsyncTypeahead
+        id="labelkey-example"
+        onSearch={(q) => this.searchGenres(q)}
+        isLoading={searchLoadingGenre}
+        minLength={3}
+        options={genres.map((genre) => genre.genreName)}
+        placeholder="Жанр"
+        onInputChange={e => this.changeNewGenre({ genreName: e })}
+        onChange={e => {
+          if (e.length > 0) {
+            this.changeNewGenre({ genreName: e[0] })
+          }
+        }}
+        ref={ref}
+      /></Col>
       <Col sm={2}>
-        <Button outline color="primary" style={{ width: "100%" }} disabled={recommendation.includes('newGenre')} onClick={() => this.pushNewGenre()}>Добавить</Button>
+        <Button 
+          outline
+          color="primary"
+          style={{ width: "100%" }} 
+          disabled={recommendation.includes('newGenre')} 
+          onClick={() => {
+            this.pushNewGenre();
+            ref.current.clear();
+          }}
+        >
+            Добавить
+        </Button>
       </Col>
     </InputRow>
   );
@@ -416,7 +545,7 @@ renderGenres() {
   return (
     <React.Fragment>
       <InputRow>
-        <Col>{genres}
+        <Col>{g}
 
         </Col>
 
@@ -464,8 +593,15 @@ deleteMTC(deleteIndex: number) {
   });
 }
 
+
+async searchMTCs(q:string){
+  this.setState({searchLoadingMTC:true})
+  this.setState({mtcs: await DocumentApi.searchMTCs(q)})
+  this.setState({searchLoadingMTC:false})
+}
+
 renderMTC() {
-  const { doc, editing, newMTC } = this.state;
+  const { doc, editing, newMTC, searchLoadingMTC, mtcs } = this.state;
 
   const mtcComponents = doc.motivationalThematicClassifications.map((mtc, i) => (
     <InputRow key={i}>
@@ -484,16 +620,32 @@ renderMTC() {
   ));
 
   let recommendation = this.checkMinForms();
+  let ref = React.createRef<any>()
   const editingComponent = (
     <InputRow>
       <Col sm={8}>
-        <Input type="text" placeholder="Мотив или тематика" value={newMTC.classificationName} onChange={e => this.changeNewMTC({ classificationName: e.target.value })} />
-      </Col>
+        <AsyncTypeahead
+        id="labelkey-example"
+        labelKey="classificationName"
+        onSearch={(q) => this.searchMTCs(q)}
+        isLoading={searchLoadingMTC}
+        minLength={3}
+        options={mtcs}
+        placeholder="Мотив или тематика"
+        onInputChange={e => this.changeNewMTC({ classificationName: e })}
+        onChange={e => e.length>0?this.changeNewMTC({ id:e[0].id, classificationName: e[0].classificationName, code: e[0].code}):''}
+        renderMenuItemChildren={(option) => (
+          <div>
+          <span> {option.classificationName}</span>
+          </div>
+        )}
+        ref={ref}
+      /></Col>
       <Col sm={2}>
         <Input type="text" placeholder="Код" value={newMTC.code} onChange={e => this.changeNewMTC({ code: e.target.value})} />
       </Col>
       <Col sm={2}>
-        <Button outline color="primary" style={{ width: "100%" }} disabled={recommendation.includes('newMTC')} onClick={() => this.pushNewMTC()}>Добавить</Button>
+        <Button outline color="primary" style={{ width: "100%" }} disabled={recommendation.includes('newMTC')} onClick={() => {this.pushNewMTC();ref.current.clear();}}>Добавить</Button>
       </Col>
     </InputRow>
   );
@@ -530,7 +682,7 @@ renderMTC() {
       <React.Fragment>
         <InputRow>
           <Col>
-            <Input readOnly={!editing} type="text" value={doc.placeName} onChange={x => this.changeDocument({ placeName: x.target.value })} />
+            <Input readOnly={true} type="text" value={doc.placeName} onChange={x => this.changeDocument({ placeName: x.target.value })} />
           </Col>
         </InputRow>
         {editing ? editingComponent : null}
@@ -558,6 +710,25 @@ renderMTC() {
     alert('upload ok');
   }
 
+  renderContent() {
+    const { doc: { content } } = this.state;
+    if (!content) {
+      return;
+    }
+
+    const words = content.split(' ');
+    return (
+      <p>
+        {words.map((w, i) => 
+          <>
+            <span className="word" id={`word${i}`}>{w + ' '}</span>
+            {<UncontrolledTooltip placement="bottom" target={`word${i}`}>I am {w}</UncontrolledTooltip>}
+          </>)
+        }
+      </p>
+    );
+  }
+
   render() {
     const { doc, editing } = this.state;
     let block = this.checkTitle();
@@ -572,13 +743,16 @@ renderMTC() {
         <DocInput 
         visible = {doc.yearOfRecord!=0||editing}
         label="Год записи">
-          <Input readOnly={!editing} type="text" value={doc.yearOfRecord} onChange={x => this.changeDocument({ yearOfRecord: parseInt(x.target.value, 10) })} />
+          <Input readOnly={!editing} type="number" value={doc.yearOfRecord} onChange={x => this.changeDocument({ yearOfRecord: parseInt(x.target.value, 10) })} />
         </DocInput>
 
         <DocInput 
           visible={doc.content!=''||editing} 
           label="Содержание">
-          <Input readOnly={!editing} style={{ height: "200px", resize: "none" }} type="textarea" value={doc.content} onChange={x => this.changeDocument({ content: x.target.value })} />
+          {/*<Input readOnly={!editing} style={{ height: "200px", resize: "none" }} type="textarea" value={doc.content} onChange={x => this.changeDocument({ content: x.target.value })} /> */}
+          <div>
+            {this.renderContent()}
+          </div>
         </DocInput>
 
         <DocInput 
@@ -639,6 +813,13 @@ renderMTC() {
         visible = {doc.placeName!=''||editing}
         label="Место">
           {this.renderPlace()}
+        </DocInput>
+
+        
+        <DocInput 
+        visible = {editing}
+        label="Морфологический анализ">       
+          <Input readOnly={!editing} style={{ height: "200px", resize: "none" }} type="textarea" value={doc.morph} onChange={x => this.changeDocument({ morph: x.target.value })} />
         </DocInput>
 
         <DocInput label="">

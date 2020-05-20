@@ -1,6 +1,9 @@
 import FolkDocument from "../models/Document";
 import { Genre } from "../models/Genre";
 import { Informant } from "../models/Informant";
+import { Folklorist } from "../models/Folklorist";
+import { MotivationalThematicClassification } from "../models/MotivationalThematicClassification";
+import { Tag } from "../models/Tag";
 
 export default class DocumentApi {
   static async getAllDocuments(): Promise<FolkDocument[]> {
@@ -67,5 +70,17 @@ export default class DocumentApi {
   static async searchInformants(informant: string): Promise<Informant[]> {
     const response = await fetch(`api/informant/search?informant=${informant}`);
     return await (response.json() as Promise<Informant[]>);
+  }
+  static async searchFolklorist(folklorist: string): Promise<Folklorist[]> {
+    const response = await fetch(`api/folklorist/search?folklorist=${folklorist}`);
+    return await (response.json() as Promise<Folklorist[]>);
+  }
+  static async searchMTCs(mtc: string): Promise<MotivationalThematicClassification[]> {
+    const response = await fetch(`api/mtc/search?mtc=${mtc}`);
+    return await (response.json() as Promise<MotivationalThematicClassification[]>);
+  }
+  static async searchTags(tag: string): Promise<Tag[]> {
+    const response = await fetch(`api/tag/search?tag=${tag}`);
+    return await (response.json() as Promise<Tag[]>);
   }
 }

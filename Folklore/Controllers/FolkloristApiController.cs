@@ -20,6 +20,12 @@ namespace Folklore.Controllers
         {
             return storage.GetAllFolklorists();
         }
+        [Route("search")]
+        [HttpGet]
+        public IEnumerable<Folklorist> SearchFolklorist([FromQuery] string folklorist)
+        {
+            return storage.SearchFolklorist(folklorist);
+        }
 
         [HttpPost]
         public Folklorist AddFolklorist([FromBody] Folklorist newFolklorist)
