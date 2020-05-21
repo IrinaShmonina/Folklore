@@ -6,11 +6,13 @@ import Loader from '../components/Loader';
 import FolkDocument from '../models/Document';
 import { InputRow } from '../components/InputRow';
 import { Genre } from '../models/Genre';
-import { Typeahead, AsyncTypeahead } from 'react-bootstrap-typeahead';
+import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import { Informant } from '../models/Informant';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
+
+const DOCS_ON_PAGE = 15;
 
 export interface DocumentsSearchProps {
-
 }
 
 export interface DocumentsSearchState {
@@ -44,7 +46,7 @@ export default class DocumentsSearch extends React.Component<DocumentsSearchProp
       page:0 };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setState({ loading: true });
     DocumentApi.getAllDocuments().then(documents => {
       this.setState({ documents, loading: false });
@@ -60,7 +62,7 @@ export default class DocumentsSearch extends React.Component<DocumentsSearchProp
   }
 
   async searchDocuments() {
-    let { search, genre, place, yearOfRecord, informant, loading } = this.state;
+    let { search, genre, place, yearOfRecord, informant } = this.state;
     this.setState({ documents: await DocumentApi.searchDocuments(search, genre, place, yearOfRecord, informant) });
 
 
@@ -81,22 +83,19 @@ export default class DocumentsSearch extends React.Component<DocumentsSearchProp
     this.setState({page:n})
   }
 
-  public getDocsOnPage(doc:FolkDocument[],n:number):FolkDocument[]{
+  public getDocsOnPage(doc:FolkDocument[],n:number):FolkDocument[] {
     let ar = [];
-    let start = n*15;
-    let end = start+15<doc.length?start+15:doc.length;
-    console.log(start);
-    console.log(end);
-    for (let i = start;i<end;i++){
+    let start = n*DOCS_ON_PAGE;
+    for (let i = start; i < doc.length && i < start+DOCS_ON_PAGE; i++){
       ar.push(doc[i])
     }
     return ar;
   }
 
   private renderDocuments() {
-    const { loading, search, genre, genres, searchLoading, place, yearOfRecord, informants, informant, documents,page } = this.state;
+    const { loading, search, genres, searchLoading, place, yearOfRecord, informants, documents,page } = this.state;
     const paginationComponents = countPagination(documents).map((i) => (
-      <PaginationItem active={page==i?true:false}>
+      <PaginationItem key={i} active={page === i}>
       
         <PaginationLink tag="button" onClick={()=>this.openPage(i)}>
           {i+1}
@@ -195,7 +194,7 @@ function crop(s?: string): string | undefined {
 
 function countPagination(documents: FolkDocument[]): number[] {
   let ar = [];
-  for (let i = 0; i <= Math.floor(documents.length / 15); i++) {
+  for (let i = 0; i < Math.ceil(documents.length / DOCS_ON_PAGE); i++) {
     ar.push(i);
   }
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { YMaps, Map, SearchControl, Placemark, FullscreenControl, withYMaps } from 'react-yandex-maps';
+import { Map, SearchControl, Placemark, FullscreenControl, withYMaps } from 'react-yandex-maps';
 
 export interface PlaceInfo {
   addressLine: string;
@@ -31,7 +31,7 @@ class PlaceMapComponent extends React.Component<PlaceMapProps, PlaceMapState> {
   }
 
   updateCoords(coords: number[]) {
-    if (!coords || coords.length != 2) {
+    if (!coords || coords.length !== 2) {
       return;
     }
 
@@ -51,7 +51,7 @@ class PlaceMapComponent extends React.Component<PlaceMapProps, PlaceMapState> {
   }
 
   render() {
-    const { coords, addressLine } = this.state;
+    const { coords } = this.state;
     const placemark = coords ? <Placemark geometry={coords} /> : null;
 
     return (

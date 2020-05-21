@@ -17,7 +17,7 @@ export default class DocumentView extends React.Component<DocumentViewProps, Doc
     super(props, state);
     this.state = { loading: false };
   }
-  async componentWillMount() {
+  async UNSAFE_componentWillMount() {
     const id = parseInt(this.props.match.params.id, 10);
     if (!id) {
       return;
