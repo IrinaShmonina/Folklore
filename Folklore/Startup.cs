@@ -31,10 +31,10 @@ namespace Folklore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSingleton<IDbConnection>(new SqlConnection(settings.SqlConnection));
-            services.AddSingleton<IStorage>(ctx => new Storage(ctx.GetService<IDbConnection>()));
-            services.AddSingleton(new BlobServiceClient(settings.AzureBlobConnection));
-            services.AddSingleton<IFileStorage>(ctx => new FileStorage(ctx.GetService<BlobServiceClient>()));
+            services.AddScoped<IDbConnection>(ctx => new SqlConnection(settings.SqlConnection));
+            services.AddScoped<IStorage>(ctx => new Storage(ctx.GetService<IDbConnection>()));
+            services.AddScoped(ctx => new BlobServiceClient(settings.AzureBlobConnection));
+            services.AddScoped<IFileStorage>(ctx => new FileStorage(ctx.GetService<BlobServiceClient>()));
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
