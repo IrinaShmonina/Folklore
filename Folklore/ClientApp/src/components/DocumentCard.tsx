@@ -196,10 +196,10 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     const informantComponents = doc.informants.map((informant, i) => (
       <InputRow key={i}>
         <Col sm={8}>
-          <Input readOnly={true} type="text" value={informant.fio} />
+          <Input readOnly={true} type="text" value={informant.fio || ''} />
         </Col>
         <Col>
-          <Input readOnly={true} type="number" value={informant.yearOfBirth} />
+          <Input readOnly={true} type="number" value={informant.yearOfBirth || ''} />
         </Col>
         {editing
           ? <Col>
@@ -696,7 +696,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
       <React.Fragment>
         <InputRow>
           <Col>
-            <Input readOnly={true} type="text" value={doc.placeName} onChange={x => this.changeDocument({ placeName: x.target.value })} />
+            <Input readOnly={true} type="text" value={doc.placeName || ''} onChange={x => this.changeDocument({ placeName: x.target.value })} />
           </Col>
         </InputRow>
         {editing ? editingComponent : null}
@@ -833,7 +833,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
         <DocInput
           visible={doc.additionalInformation !== '' || editing}
           label="Дополнительная информация">
-          <Input readOnly={!editing} style={{ height: "100px", resize: "none" }} type="textarea" value={doc.additionalInformation} onChange={x => this.changeDocument({ additionalInformation: x.target.value })} />
+          <Input readOnly={!editing} style={{ height: "100px", resize: "none" }} type="textarea" value={doc.additionalInformation || ''} onChange={x => this.changeDocument({ additionalInformation: x.target.value })} />
         </DocInput>
 
         <DocInput

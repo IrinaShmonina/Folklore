@@ -97,7 +97,7 @@ SET Title=@Title,
     FileName=@FileName,
     FileId=@FileId
 WHERE Id=@Id";
-            db.Query<Document>(sqlUpdDoc, new
+            db.Execute(sqlUpdDoc, new
             {
                 Title = updateDocument.Title,
                 Content = updateDocument.Content,
@@ -110,10 +110,133 @@ WHERE Id=@Id";
                 FileId=updateDocument.FileId,
                 Id = updateDocument.Id
             });
-            Console.WriteLine(1);
-            // Update informants
-            db.Query<int>(
-                @"DELETE FROM [dbo].[Rels_Document_Informant] WHERE [DocumentId]=@Id", 
+
+            UpdateInformants(updateDocument);
+            UpdateFolklorists(updateDocument);
+            UpdateTags(updateDocument);
+            UpdateGenres(updateDocument);
+            UpdateMTC(updateDocument);
+            UpdateMorph(updateDocument);
+            
+            return GetDocument(updateDocument.Id);
+        }
+
+        private void UpdateMorph(Document updateDocument)
+        {
+            db.Execute(@"IF EXISTS(SELECT * FROM [dbo].[Morph] WHERE [DocumentId] = @id)
+   UPDATE [dbo].[Morph] SET [Analysis] = @m WHERE [DocumentId] = @id
+ELSE INSERT INTO [dbo].[Morph] ([DocumentId],[Analysis]) VALUES (@id,@m)",
+                new {id = updateDocument.Id, m = updateDocument.Morph});
+        }
+
+        private void UpdateMTC(Document updateDocument)
+        {
+            db.Execute(
+                @"DELETE FROM [dbo].[Rels_Document_MotivationalThematicClassification] WHERE [DocumentId]=@Id",
+                new { Id = updateDocument.Id });
+
+            var mtcIds = new List<int>();
+            foreach (var mtc in updateDocument.MotivationalThematicClassifications)
+            {
+                if (mtc.Id != null)
+                {
+                    mtcIds.Add(mtc.Id.Value);
+                    continue;
+                }
+
+                mtcIds.Add(AddMotivationalThematicClassification(mtc).Id.Value);
+            }
+
+            foreach (var mtcId in mtcIds)
+            {
+                db.Execute(@"
+INSERT INTO [dbo].[Rels_Document_MotivationalThematicClassification] ([DocumentId],[MotivationalThematicClassificationId])
+VALUES (@IdDoc,@IdG)", new { IdDoc = updateDocument.Id, IdG = mtcId });
+            }
+        }
+
+        private void UpdateGenres(Document updateDocument)
+        {
+            db.Execute(
+                @"DELETE FROM [dbo].[Rels_Document_Genre] WHERE [DocumentId]=@Id",
+                new { Id = updateDocument.Id });
+
+            var genresIds = new List<int>();
+            foreach (var genre in updateDocument.Genres)
+            {
+                if (genre.Id != null)
+                {
+                    genresIds.Add(genre.Id.Value);
+                    continue;
+                }
+
+                genresIds.Add(AddGenre(genre).Id.Value);
+            }
+
+            foreach (var genresId in genresIds)
+            {
+                db.Execute(@"
+INSERT INTO [dbo].[Rels_Document_Genre] ([DocumentId],[GenreId])
+VALUES (@IdDoc,@IdG)", new {IdDoc = updateDocument.Id, IdG = genresId});
+            }
+        }
+
+        private void UpdateTags(Document updateDocument)
+        {
+            db.Execute(
+                @"DELETE FROM [dbo].[Rels_Document_Tag] WHERE [DocumentId]=@Id",
+                new { Id = updateDocument.Id });
+
+            var tagIds = new List<int>();
+            foreach (var tag in updateDocument.Tags)
+            {
+                if (tag.Id != null)
+                {
+                    tagIds.Add(tag.Id.Value);
+                    continue;
+                }
+
+                tagIds.Add(AddTag(tag).Id.Value);
+            }
+
+            foreach (var tagId in tagIds)
+            {
+                db.Execute(@"
+INSERT INTO [dbo].[Rels_Document_Tag] ([DocumentId],[TagId])
+VALUES (@IdDoc,@IdT)", new {IdDoc = updateDocument.Id, IdT = tagId});
+            }
+        }
+
+        private void UpdateFolklorists(Document updateDocument)
+        {
+            db.Execute(
+                @"DELETE FROM [dbo].[Rels_Document_Folklorist] WHERE [DocumentId]=@Id",
+                new { Id = updateDocument.Id });
+
+            var folkloristIds = new List<int>();
+            foreach (var folklorist in updateDocument.Folklorists)
+            {
+                if (folklorist.Id != null)
+                {
+                    folkloristIds.Add(folklorist.Id.Value);
+                    continue;
+                }
+
+                folkloristIds.Add(AddFolklorist(folklorist).Id.Value);
+            }
+
+            foreach (var folkloristId in folkloristIds)
+            {
+                db.Execute(@"
+INSERT INTO [dbo].[Rels_Document_Folklorist] ([DocumentId],[FolkloristId])
+VALUES (@IdDoc,@IdFol)", new {IdDoc = updateDocument.Id, IdFol = folkloristId});
+            }
+        }
+
+        private void UpdateInformants(Document updateDocument)
+        {
+            db.Execute(
+                @"DELETE FROM [dbo].[Rels_Document_Informant] WHERE [DocumentId]=@Id",
                 new {Id = updateDocument.Id});
 
             var informantIds = new List<int>();
@@ -127,7 +250,6 @@ WHERE Id=@Id";
 
                 informantIds.Add(AddInformant(informant).Id.Value);
             }
-            
 
             foreach (var informantId in informantIds)
             {
@@ -135,81 +257,6 @@ WHERE Id=@Id";
 INSERT INTO [dbo].[Rels_Document_Informant] ([DocumentId],[InformantId])
 VALUES (@IdDoc,@IdInf)", new {IdDoc = updateDocument.Id, IdInf = informantId});
             }
-            var folkloristIds = new List<int>();
-            foreach (var folklorist in updateDocument.Folklorists)
-            {
-                if (folklorist.Id != null)
-                {
-                    informantIds.Add(folklorist.Id.Value);
-                    continue;
-                }
-
-                folkloristIds.Add(AddFolklorist(folklorist).Id.Value);
-            }
-            foreach (var folkloristId in folkloristIds)
-            {
-                db.Execute(@"
-INSERT INTO [dbo].[Rels_Document_Folklorist] ([DocumentId],[FolkloristId])
-VALUES (@IdDoc,@IdFol)", new { IdDoc = updateDocument.Id, IdFol = folkloristId });
-            }
-
-            var tagIds = new List<int>();
-            foreach (var tag in updateDocument.Tags)
-            {
-                if (tag.Id != null)
-                {
-                    informantIds.Add(tag.Id.Value);
-                    continue;
-                }
-
-                tagIds.Add(AddTag(tag).Id.Value);
-            }
-            foreach (var tagId in tagIds)
-            {
-                db.Execute(@"
-INSERT INTO [dbo].[Rels_Document_Tag] ([DocumentId],[TagId])
-VALUES (@IdDoc,@IdT)", new { IdDoc = updateDocument.Id, IdT = tagId });
-            }
-
-            var genresIds = new List<int>();
-            foreach (var genre in updateDocument.Genres)
-            {
-                if (genre.Id != null)
-                {
-                    informantIds.Add(genre.Id.Value);
-                    continue;
-                }
-
-                genresIds.Add(AddGenre(genre).Id.Value);
-            }
-
-            foreach (var genresId in genresIds)
-            {
-                db.Execute(@"
-INSERT INTO [dbo].[Rels_Document_Genre] ([DocumentId],[GenreId])
-VALUES (@IdDoc,@IdG)", new {IdDoc = updateDocument.Id, IdG = genresId});
-
-            }
-
-            var mtcIds = new List<int>();
-            foreach (var mtc in updateDocument.MotivationalThematicClassifications)
-            {
-                if (mtc.Id != null)
-                {
-                    informantIds.Add(mtc.Id.Value);
-                    continue;
-                }
-
-                mtcIds.Add(AddMotivationalThematicClassification(mtc).Id.Value);
-            }
-
-
-            db.Execute(@"IF EXISTS(SELECT * FROM [dbo].[Morph] WHERE [DocumentId] = @id)
-   UPDATE [dbo].[Morph] SET [Analysis] = @m WHERE [DocumentId] = @id
-ELSE INSERT INTO [dbo].[Morph] ([DocumentId],[Analysis]) VALUES (@id,@m)", new { id = updateDocument.Id, m = updateDocument.Morph });
-            
-
-            return GetDocument(updateDocument.Id);
         }
 
         public void DeleteDocument(int id)
@@ -236,10 +283,8 @@ ELSE INSERT INTO [dbo].[Morph] ([DocumentId],[Analysis]) VALUES (@id,@m)", new {
                 FileName = document.FileName,
                 FileId=document.FileId
             }).Single();
-            var s = @"INSERT INTO [dbo].[Morph] ([DocumentId],[Analysis])
-     VALUES (@id,@m)";
-            db.Execute(s, new { id = document.Id, m = document.Morph });
 
+            document.Id = id;
             UpdateDocument(document);
             return GetDocument(id);
         }
