@@ -11,10 +11,12 @@ import { Genre } from '../models/Genre';
 import { MotivationalThematicClassification } from '../models/MotivationalThematicClassification';
 import PlaceMap, { PlaceInfo } from './PlaceMap';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
-import { parseMorphCsv, MorphInfo } from '../store/morph';
+import { parseMorphCsv, MorphInfo, serializeMorphCsv } from '../utils/morph';
 
 import './card.css';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
+import { TableEditor } from './TableEditor';
+import { downloadTextFile, uploadTextFile } from '../utils/files';
 
 export interface DocumentCardProps {
   doc: FolkDocument;
@@ -31,6 +33,9 @@ export interface DocumentCardState {
   newGenre: Genre;
   newMTC: MotivationalThematicClassification;
   valid: boolean;
+  morph: MorphInfo[];
+
+  // for search
   informants: Informant[];
   searchLoadingInformant: boolean;
   searchLoadingFolklorist: boolean;
@@ -40,7 +45,7 @@ export interface DocumentCardState {
   folklorists: Folklorist[];
   genres: Genre[];
   mtcs: MotivationalThematicClassification[];
-  tags: Tag[]
+  tags: Tag[];
 }
 
 export default class DocumentCard extends React.Component<DocumentCardProps, DocumentCardState> {
@@ -67,6 +72,9 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
       },
       valid: false,
       informants: [],
+      morph: parseMorphCsv(props.doc.morph),
+
+      // search
       searchLoadingInformant: false,
       searchLoadingFolklorist: false,
       searchLoadingTag: false,
@@ -75,7 +83,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
       folklorists: [],
       genres: [],
       mtcs: [],
-      tags: []
+      tags: [],
     };
   }
 
@@ -84,7 +92,11 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
   }
 
   async saveChanges() {
-    const { doc } = this.state;
+    let { doc } = this.state;
+    doc = {
+      ...doc,
+      morph: serializeMorphCsv(this.state.morph) // сохраянем редактированный morph
+    }
     this.setState({ editing: false });
     await this.props.onDocSave(doc);
   }
@@ -755,7 +767,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
 
       const morph: MorphInfo = morphs.length > currentWord
         ? morphs[currentWord]
-        : { initialForm: '', partOfSpeach: '', grammaticalSigns: '' };
+        : { word: '', initialForm: '', partOfSpeach: '', grammaticalSigns: '' };
 
       const id = `word${currentWord}`;
       const renderedPart = (
@@ -773,6 +785,60 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     })
 
     return <p style={{ whiteSpace: "pre-line" }}>{renderedParts}</p>
+  }
+
+  exportMorphCsv() {
+    const csv = serializeMorphCsv(this.state.morph);
+    const name = this.state.doc.title.replace(/\s+/g, '_');
+    downloadTextFile(`${name}.morph.csv`, csv);
+  }
+
+  importMorphCsv() {
+    uploadTextFile(csv => {
+      const morph = parseMorphCsv(csv);
+      this.setState({ morph });
+    }, '.csv');
+  }
+
+  renderMorph() {
+    const { doc } = this.state;
+
+    return (
+      <>
+        <InputRow>
+          <Col>
+            <Button outline style={{width: '100%'}} onClick={() => this.exportMorphCsv()}>Экспорт в CSV</Button>
+          </Col>
+          <Col>
+            <Button outline style={{width: '100%'}} onClick={() => this.importMorphCsv()}>Импорт из CSV</Button>
+          </Col>
+          <Col>
+            <Button outline style={{width: '100%'}}>Заполнить</Button>
+          </Col>
+        </InputRow>
+        <InputRow>
+        
+          <Col>
+            <TableEditor
+              header={['Слово', 'Начальная форма', 'Часть речи', 'Граматические признаки']}
+              sizes={[20, 20, 15, 45]}
+              columns={['word', 'initialForm', 'partOfSpeach', 'grammaticalSigns']}
+              data={this.state.morph} 
+              onChange={(row, col, value) => {
+                const newMorph = [...this.state.morph]
+                newMorph[row] = {
+                  ...newMorph[row],
+                  [col]: value.trim()
+                }
+                this.setState({ morph: newMorph });
+              }}
+              renderCell={(item, key) => item[key]}
+            />
+          </Col>
+        </InputRow>
+
+      </>
+    );
   }
 
   render() {
@@ -864,20 +930,15 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
         <DocInput
           visible={editing}
           label="Морфологический анализ">
-          <Input 
-            readOnly={!editing} style={{ height: "200px", resize: "none" }} 
-            type="textarea" 
-            value={doc.morph} 
-            placeholder="<слово по порядку в тексте>; <начальная форма>; <часть речи>; <грамматические признаки>"
-            onChange={x => this.changeDocument({ morph: x.target.value })} />
+            {this.renderMorph()}
         </DocInput>
 
         <DocInput label="">
           <InputRow>
-            <Col sm={{ size: 2, offset: 10 }}>
+            <Col>
               {
                 editing
-                  ? <Button outline color="success" style={{ width: "100%" }} disabled={block.length !== 0} onClick={() => this.saveChanges()}>Сохранить</Button>
+                  ? <Button outline color="success" style={{ width: "100%" }} disabled={block.length !== 0} onClick={() => this.saveChanges()}>Сохранить документ</Button>
                   : <Button outline color="secondary" style={{ width: "100%" }} onClick={() => this.startEditing()}>Изменить</Button>
               }
             </Col>
@@ -887,3 +948,5 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     );
   }
 }
+
+
