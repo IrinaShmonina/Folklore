@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Folklore;
 using Folklore.Models;
+using Folklore.Mystem;
 using Newtonsoft.Json;
 
 namespace DatabaseFiller

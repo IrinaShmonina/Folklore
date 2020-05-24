@@ -1,40 +1,15 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using Folklore.Models;
+using Newtonsoft.Json;
 
-namespace Folklore
+namespace Folklore.Mystem
 {
-    public class MystemWord
-    {   // {"analysis":[{"lex":"привет","gr":"S,m,inan=(acc,sg|nom,sg)"}],"text":"Привет"}
-        public string text { get; set; }
-        public IReadOnlyList<MystemAnalysis> analysis { get; set; }
-    }
-
-    public class MystemAnalysis
-    {
-        public string lex { get; set; }
-        public string gr { get; set; }
-    }
-
-    public class MorphInfo
-    {
-        public string Word { get; set; } = "";
-        public string InitialForm { get; set; } = "";
-        public string PartOfSpeach { get; set; } = "";
-        public string GrammaticalSigns { get; set; } = "";
-    }
-
-    public interface IMystemClient
-    {
-        IEnumerable<MorphInfo> Run(string text);
-    }
-
     public class MystemClient : IMystemClient
     {
         public readonly string pathToMystem;

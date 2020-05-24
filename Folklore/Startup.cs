@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using System.IO;
 using System.Reflection.Metadata;
 using Azure.Storage.Blobs;
+using Folklore.Mystem;
 using Folklore.Storages;
 using Microsoft.Extensions.Azure;
 
@@ -31,6 +32,7 @@ namespace Folklore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<IMystemClient>(ctx => new MystemClient(Path.Combine("res", "mystem.exe")));
             services.AddScoped<IDbConnection>(ctx => new SqlConnection(settings.SqlConnection));
             services.AddScoped<IStorage>(ctx => new Storage(ctx.GetService<IDbConnection>()));
             services.AddScoped(ctx => new BlobServiceClient(settings.AzureBlobConnection));
