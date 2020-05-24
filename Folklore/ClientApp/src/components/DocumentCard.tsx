@@ -14,10 +14,11 @@ import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import { parseMorphCsv, serializeMorphCsv } from '../utils/morph';
 import { MorphInfo } from "../models/MorphInfo";
 
-import './card.css';
+import './index.css';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import { TableEditor } from './TableEditor';
 import { downloadTextFile, uploadTextFile } from '../utils/files';
+import Loader from './Loader';
 
 export interface DocumentCardProps {
   doc: FolkDocument;
@@ -35,6 +36,7 @@ export interface DocumentCardState {
   newMTC: MotivationalThematicClassification;
   valid: boolean;
   morph: MorphInfo[];
+  loading: boolean;
 
   // for search
   informants: Informant[];
@@ -74,7 +76,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
       valid: false,
       informants: [],
       morph: parseMorphCsv(props.doc.morph),
-
+      loading: false,
       // search
       searchLoadingInformant: false,
       searchLoadingFolklorist: false,
@@ -732,8 +734,13 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     }
 
     const file = fileList[0];
-    const id = await DocumentApi.uploadFile(file);
-    this.changeDocument({ fileName: file.name, fileId: id });
+    this.setState({ loading: true })
+    try {
+      const id = await DocumentApi.uploadFile(file);
+      this.changeDocument({ fileName: file.name, fileId: id });
+    } finally {
+      this.setState({ loading: false });
+    }
   }
 
   renderContent() {
@@ -807,8 +814,13 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     if (/^\s+$/g.test(text)) {
       return;
     }
-    const morph = await DocumentApi.getMorphs(text);
-    this.setState({ morph })
+    this.setState({loading: true});
+    try {
+      const morph = await DocumentApi.getMorphs(text);
+      this.setState({ morph })
+    } finally {
+      this.setState({loading: false});
+    }
   }
 
   renderMorph() {
@@ -824,7 +836,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
             <Button outline style={{width: '100%'}} onClick={() => this.importMorphCsv()}>Импорт из CSV</Button>
           </Col>
           <Col>
-            <Button outline style={{width: '100%'}} onClick={() => this.getMorphsForText()}>Заполнить</Button>
+            <Button outline style={{width: '100%'}} onClick={() => this.getMorphsForText()}>Заполнить из Mystem</Button>
           </Col>
         </InputRow>
         <InputRow>
@@ -834,7 +846,8 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
               header={['Слово', 'Начальная форма', 'Часть речи', 'Граматические признаки']}
               sizes={[20, 20, 15, 45]}
               columns={['word', 'initialForm', 'partOfSpeach', 'grammaticalSigns']}
-              data={this.state.morph} 
+              data={this.state.morph}
+              emptyPlaceholder="Данных нет, заполните с помощью Mystem или экспортируйте из CSV файла"
               onChange={(row, col, value) => {
                 const newMorph = [...this.state.morph]
                 newMorph[row] = {
@@ -853,12 +866,12 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
   }
 
   render() {
-    const { doc, editing } = this.state;
+    const { doc, editing, loading } = this.state;
     let block = this.checkTitle();
-
 
     return (
       <div>
+        { loading && <Loader /> }
         <DocInput label="Название">
           <Input readOnly={!editing} value={doc.title} invalid={block.includes('title')} onChange={x => this.changeDocument({ title: x.target.value })} />
         </DocInput>
