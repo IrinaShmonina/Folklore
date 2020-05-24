@@ -34,24 +34,21 @@ namespace Folklore.Mystem
             {
                 FileName = pathToMystem,
                 WorkingDirectory = workingDirectory,
-                Arguments = $"-igd --eng-gr --format json input output",
+                Arguments = $"-igdn --eng-gr --format json input output",
                 UseShellExecute = false
             });
 
             process.WaitForExit();
 
-            var result = File.ReadAllText(outputPath, Encoding.UTF8);
+            var result = File.ReadLines(outputPath, Encoding.UTF8)
+                .Where(l => !string.IsNullOrEmpty(l))
+                .Select(JsonConvert.DeserializeObject<MystemWord>)
+                .Where(w => Regex.IsMatch(w.text, @"^[а-яА-ЯёЁ-]+$"))
+                .Select(ConvertMystemWordToMorph)
+                .ToList();
+
             Directory.Delete(workingDirectory, true);
-
-            if (string.IsNullOrEmpty(result))
-            {
-                return Enumerable.Empty<MorphInfo>();
-            }
-
-            var words = JsonConvert.DeserializeObject<List<MystemWord>>(result);
-
-
-            return words.Where(w => Regex.IsMatch(w.text, @"^[а-яА-ЯёЁ-]+$")).Select(ConvertMystemWordToMorph);
+            return result;
         }
 
         private static MorphInfo ConvertMystemWordToMorph(MystemWord mystemWord)

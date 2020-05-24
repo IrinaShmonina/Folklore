@@ -35,7 +35,7 @@ namespace DatabaseFiller
         {
             var c = new MystemClient(@"res\mystem.exe");
 
-            var res = c.Run("Привет мир, тут какой-то текст для теста майстема").ToList();
+            var res = c.Run("Привет мир, тут какой-то.\n\n текст для теста майстема").ToList();
         }
     }
 }
