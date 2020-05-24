@@ -21,7 +21,7 @@ namespace Folklore.Storages
 
         public IEnumerable<Document> GetAllDocuments()
         {
-            return db.Query<Document>(@"Select * From [dbo].[Documents] WHERE Deleted = 0 order by [CreatedAt] desc");
+            return db.Query<Document>(@"Select TOP(200) * From [dbo].[Documents] WHERE Deleted = 0 order by [CreatedAt] desc");
         }
 
         public Document GetDocument(int id)
@@ -291,7 +291,7 @@ VALUES (@IdDoc,@IdInf)", new {IdDoc = updateDocument.Id, IdInf = informantId});
         public IEnumerable<Document> SearchDocument(string str, string genre, string place, string yearOfRecord,string informant)
         {
             var s = "%" + str + "%";
-            var sql = @"SELECT * FROM [dbo].[Documents] WHERE (Title like @s OR Content like @s)";
+            var sql = @"SELECT TOP(200) * FROM [dbo].[Documents] WHERE (Title like @s OR Content like @s)";
             if (!string.IsNullOrEmpty(genre))
             {
                 sql += @"AND Id in 
