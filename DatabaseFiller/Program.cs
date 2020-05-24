@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Folklore;
 using Folklore.Models;
 using Newtonsoft.Json;
 
@@ -26,6 +28,13 @@ namespace DatabaseFiller
             //var documents = JsonConvert.DeserializeObject<Document[]>(respStr);
             //JsonConvert.SerializeObject();
             //Console.WriteLine(resp);
+        }
+
+        static void MystemTest()
+        {
+            var c = new MystemClient(@"res\mystem.exe");
+
+            var res = c.Run("Привет мир, тут какой-то текст для теста майстема").ToList();
         }
     }
 }
