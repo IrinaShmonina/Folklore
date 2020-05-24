@@ -4,6 +4,7 @@ import { Informant } from "../models/Informant";
 import { Folklorist } from "../models/Folklorist";
 import { MotivationalThematicClassification } from "../models/MotivationalThematicClassification";
 import { Tag } from "../models/Tag";
+import { MorphInfo } from "../models/MorphInfo";
 
 export default class DocumentApi {
   static async getAllDocuments(): Promise<FolkDocument[]> {
@@ -82,5 +83,17 @@ export default class DocumentApi {
   static async searchTags(tag: string): Promise<Tag[]> {
     const response = await fetch(`api/tag/search?tag=${tag}`);
     return await (response.json() as Promise<Tag[]>);
+  }
+
+  static async getMorphs(text: string): Promise<MorphInfo[]> {
+    const response = await fetch('api/morph', {
+      method: "POST",
+      body: JSON.stringify({ text }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    });
+
+    return await (response.json() as Promise<MorphInfo[]>);
   }
 }

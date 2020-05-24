@@ -1,5 +1,6 @@
 import * as Papa from 'papaparse';
 import { delimiter } from 'path';
+import { MorphInfo } from '../models/MorphInfo';
 
 const DELIMITER = ';';
 
@@ -28,13 +29,6 @@ function makeMorph(line: string[]): MorphInfo {
 
 function isString(x: any): x is string {
   return typeof x === "string";
-}
-
-export interface MorphInfo {
-  word: string;
-  initialForm: string;
-  partOfSpeach: string;
-  grammaticalSigns: string;
 }
 
 export function parseMorphCsv(csv: string): MorphInfo[] {

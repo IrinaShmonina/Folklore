@@ -11,7 +11,8 @@ import { Genre } from '../models/Genre';
 import { MotivationalThematicClassification } from '../models/MotivationalThematicClassification';
 import PlaceMap, { PlaceInfo } from './PlaceMap';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
-import { parseMorphCsv, MorphInfo, serializeMorphCsv } from '../utils/morph';
+import { parseMorphCsv, serializeMorphCsv } from '../utils/morph';
+import { MorphInfo } from "../models/MorphInfo";
 
 import './card.css';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
@@ -800,6 +801,16 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     }, '.csv');
   }
 
+  async getMorphsForText() {
+    const { doc } = this.state;
+    const text = doc.content || "";
+    if (/^\s+$/g.test(text)) {
+      return;
+    }
+    const morph = await DocumentApi.getMorphs(text);
+    this.setState({ morph })
+  }
+
   renderMorph() {
     const { doc } = this.state;
 
@@ -813,7 +824,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
             <Button outline style={{width: '100%'}} onClick={() => this.importMorphCsv()}>Импорт из CSV</Button>
           </Col>
           <Col>
-            <Button outline style={{width: '100%'}}>Заполнить</Button>
+            <Button outline style={{width: '100%'}} onClick={() => this.getMorphsForText()}>Заполнить</Button>
           </Col>
         </InputRow>
         <InputRow>

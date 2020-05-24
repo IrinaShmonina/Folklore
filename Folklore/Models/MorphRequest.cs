@@ -2,6 +2,6 @@
 {
     public class MorphRequest
     {
-        public string Text { get; }
+        public string Text { get; set; }
     }
 }
