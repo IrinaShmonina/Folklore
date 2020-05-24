@@ -1,0 +1,1456 @@
+﻿[{ "Title": "Ермак казак был забуяка",
+  "Content": "Ермак казак был забуяка. Он завоевывал правительству Сибирь. Он прошел по Туре. У его дружины было первое огненное оружие, а у остальных народностей – только стрелы. Ну, он их и брал. Про них говорили: «Если надо городишко какой взять – слободы назывались – так он всю одежду снимет со своих казаков, сделает чучела, поставит, и сами они встанут, так много получалось народу. Верхнюю одежду пользовали для того, чтобы запугать, чтобы сдались татары. Царица Екатерина II полушубок подарила Ермаку, когда он Сибирь брал. В Верхотурьи крепость осталась. Ее построили или татары, или русские от набегов татар уже после Ермака.",
+  "PlaceName": "Деревня Кузино Алапаевского района",
+  "PlaceLatitude": 57.849877,
+  "PlaceLongitude": 62.157731,
+  "YearOfRecord": 1966,
+  "Folklorists": [
+    {
+      "FIO": "Т. Нестеренко"
+    },
+    {
+      "FIO": "Э. Лазарева"
+    }
+	],
+	"Informants":[
+	{
+		"FIO": "Меньшиков Семен Андреевич",
+		"YearOfBirth": 1895
+	}],
+	"Genres":[
+	{
+		"Id":4,
+		"GenreName": "Предание"
+	}],
+	"Morph": "Ермак;ермак;S;persn,m,anim,nom,sg
+казак;казак;S;m,anim,nom,sg
+был;быть;V;intr,praet,sg,indic,m,ipf
+забуяка;забуяка;S;mf,anim,diallex,nom,sg
+Он;он;SPRO;sg,3p,m,nom
+завоевывал;завоевывать;V;tran,praet,sg,indic,m,ipf
+правительству;правительство;S;n,inan,dat,sg
+Сибирь;сибирь;S;geo,f,inan,acc,sg
+Он;он;SPRO;sg,3p,m,nom
+прошел;пройти;V;pf,tran,praet,sg,indic,m
+по;по;PR;
+Туре;тура;S;geo,sg,f,inan,dat
+У;у;PR;
+его;его;APRO;gen,sg,f
+дружины;дружина;S;f,inan,gen,sg
+было;быть;V;intr,praet,sg,indic,n,ipf
+первое;первый;ANUM;nom,sg,n
+огненное;огненный;A;nom,sg,plen,n
+оружие;оружие;S;n,inan,nom,sg
+а;а;CONJ;
+у;у;PR;
+остальных;остальной;A;plen,gen,pl
+народностей;народность;S;f,inan,gen,pl
+только;только;ADV;
+стрелы;стрела;S;f,inan,acc,pl
+Ну;ну;PART;
+он;он;SPRO;sg,3p,m,nom
+их;они;SPRO;pl,acc
+и;и;PART;
+брал;брать;V;ipf,tran,praet,sg,indic,m
+Про;про;PR;
+них;они;SPRO;pl,(abl|acc|gen)
+говорили;говорить;V;ipf,tran,praet,pl,indic
+Если;если;CONJ;
+надо;надо;ADV;praed
+городишко;городишко;S;m,inan,acc,sg
+какой;какой;APRO;acc,sg,m,inan
+взять;взять;V;pf,tran,inf
+слободы ;слобода;S;f,inan,nom,pl,dialcase
+назывались;называться;V;ipf,intr,praet,pl,indic
+так;так;CONJ;
+он;он;SPRO;sg,3p,m,nom
+всю;весь;APRO;acc,sg,f
+одежду;одежда;S;f,inan,acc,sg
+снимет;снимать;V;tran,inpraes,sg,indic,3p,pf
+со;со;PR;
+своих;свой;APRO;gen,pl
+казаков;казак;S;m,anim,gen,pl
+сделает;сделать;V;pf,tran,inpraes,sg,indic,3p
+чучела;чучело;S;n,inan,nom,pl
+поставит;поставлять;V;tran,inpraes,sg,indic,3p,pf
+и;и;CONJ;
+сами;сам;APRO;nom,pl
+они;они;SPRO;pl,nom
+встанут;вставать;V;intr,inpraes,pl,indic,3p,pf
+так;так;ADVPRO;
+много;много;ADV;
+получалось;получаться;V;intr,praet,sg,indic,n,ipf
+народу;народ;S;m,inan,part,sg
+Верхнюю;верхний;A;acc,sg,plen,f
+одежду;одежда;S;f,inan,acc,sg
+пользовали;пользовать;V;ipf,tran,praet,pl,indic
+для;для;PR; 
+того;то;SPRO;sg,n,inan,gen
+чтобы;чтобы;CONJ;
+запугать;запугивать;V;tran,inf,pf
+чтобы;чтобы;CONJ;
+сдались;сдаваться;V;intr,praet,pl,indic,pf
+татары;татарин;S;m,anim,nom,pl
+Царица;царица;S;f,anim,nom,sg
+Екатерина;екатерина;S;persn,f,anim,nom,sg
+полушубок;полушубок;S;m,inan,acc,sg
+подарила;подарить;V;pf,tran,praet,sg,indic,f
+Ермаку;ермак;S;persn,m,anim,dat,sg
+когда;когда;CONJ;
+он;он;SPRO;sg,3p,m,nom
+Сибирь;сибирь;S;geo,f,inan,acc,sg
+брал;брать;V;ipf,tran,praet,sg,indic,m
+В;в;PR;
+Верхотурьи;верхотурье;S;geo,n,inan,abl,sg,dialflex
+крепость;крепость;S;f,inan,nom,sg
+осталась;оставаться;V;intr,praet,sg,indic,f,pf
+Ее;она;SPRO;sg,3p,f,acc
+построили;построить;V;pf,tran,praet,pl,indic
+или;или;CONJ;
+татары;татарин;S;m,anim,nom,pl
+или;или;CONJ;
+русские;русский;S;m,anim,nom,pl
+от;от;PR;
+набегов;набег;S;m,inan,gen,pl
+татар;татарин;S;m,anim,gen,pl
+уже;уже;PART;
+после;после;PR;
+Ермака;ермак;S;persn,m,anim,gen,sg"
+},
+{ "Title": "Гадание на Рождество",
+  "Content": "На Рождество моя ровня ворожить ходили, в зеркале жениха высматривали. В Новый год самое сборище было. На зеркало вот как гадали. Ране божницы были, тут у нас Боженька стоял, там свечку зажигали. Нитку привязывали к свечке и за скобку дверную. Один гадает, остальные духу не дают, на полу или на койке где приляжут, чтобы не слышно их было. Один садится на брус на полати, или на табуретку под брус и смотрит в зеркало. Показывалось: невеста придет, жених придет. Я смотрела и жениха своего видела. Потом мы поженились.",
+  "PlaceName": "Деревня Кузино Алапаевского района",
+  "PlaceLatitude": 57.849877,
+  "PlaceLongitude": 62.157731,
+  "YearOfRecord": 1966,
+  "Folklorists": [
+    {
+	  "Id": 1,
+      "FIO": "Т. Нестеренко"
+    },
+    {
+	  "Id": 2,
+      "FIO": "Э. Лазарева"
+    }
+	],
+	"Informants":[
+	{
+		"FIO": "Шмакова Матрена Ксенофонтовна",
+		"YearOfBirth": 1894
+	}],
+	"Genres":[
+	{
+		"Id": 24,
+		"GenreName": "Гадание"
+	}],
+	"Morph": "На;на;PR;
+Рождество;рождество;S;sg,n,inan,acc
+моя;мой;APRO;nom,sg,f
+ровня;ровня;S;mf,anim,nom,sg
+ворожить;ворожить;V;ipf,intr,inf
+ходили;ходить;V;ipf,intr,praet,pl,indic
+в;в;PR;
+зеркале;зеркало;S;n,inan,abl,sg
+жениха;жених;S;m,anim,acc,sg
+высматривали;высматривать;V;tran,praet,pl,indic,ipf
+В;в;PR;
+Новый;новый;A;acc,sg,plen,m,inan
+год;год;S;m,inan,acc,sg
+самое;самый;APRO;nom,sg,n
+сборище;сборище;S;n,inan,nom,sg
+было;быть;V;intr,praet,sg,indic,n,ipf
+На;на;PR;
+зеркало;зеркало;S;n,inan,acc,sg
+вот;вот;PART;
+как;как;CONJ;
+гадали;гадать;V;ipf,intr,praet,pl,indic
+Ране;рано;ADV;dialstem
+божницы;божница;S;f,inan,nom,pl
+были;быть;V;intr,praet,pl,indic,ipf
+тут;тут;ADVPRO;
+у;у;PR;
+нас;мы;SPRO;pl,1p,gen
+Боженька;боженька;S;m,anim,nom,sg
+стоял;стоять;V;ipf,intr,praet,sg,indic,m
+там;там;ADVPRO;
+свечку;свечка;S;f,inan,acc,sg
+зажигали;зажигать;V;praet,pl,indic,ipf,tran
+Нитку;нитка;S;f,inan,acc,sg
+привязывали;привязывать;V;praet,pl,indic,ipf,tran
+к;к;PR;
+свечке;свечка;S;f,inan,dat,sg
+и;и;CONJ;
+за;за;PR;
+скобку;скобка;S;f,inan,acc,sg
+дверную;дверной;A;acc,sg,plen,f
+Один;один;S;m,anim,nom,sg
+гадает;гадать;V;ipf,intr,inpraes,sg,indic,3p
+остальные;остальной;A;plen,(nom,pl|acc,pl,inan)
+духу;дух;S;m,inan,dat,sg
+не;не;PART;
+дают;давать;V;tran,inpraes,pl,indic,3p,ipf
+на;на;PR;
+полу;пол;S;m,inan,loc,sg
+или;или;CONJ;
+на;на;PR;
+койке;койка;S;f,inan,abl,sg
+где;где;ADVPRO;
+приляжут;прилечь;V;pf,intr,indic,act,inpraes,3p,pl,dialstem
+чтобы;чтобы;CONJ;
+не;не;PART;
+слышно;слышно;ADV;praed
+их;они;SPRO;pl,acc
+было;быть;V;intr,praet,sg,indic,n,ipf
+Один;один;S;m,anim,nom,sg
+садится;садиться;V;intr,inpraes,sg,indic,3p,ipf
+на;на;PR;
+брус;брус;S;m,inan,acc,sg
+на;на;PR;
+полати;полати;S;pl,inan,acc
+или;или;CONJ;
+на;на;PR;
+табуретку;табуретка;S;f,inan,acc,sg
+под;под;PR;
+брус;брус;S;m,inan,acc,sg
+и;и;CONJ;
+смотрит;смотреть;V;ipf,tran,inpraes,sg,indic,3p
+в;в;PR;
+зеркало;зеркало;S;n,inan,acc,sg
+Показывалось;показываться;V;intr,praet,sg,indic,n,ipf
+невеста;невеста;S;f,anim,nom,sg
+придет;прийти;V;pf,intr,inpraes,sg,indic,3p
+жених;жених;S;m,anim,nom,sg
+придет;прийти;V;pf,intr,inpraes,sg,indic,3p
+Я;я;SPRO;sg,1p,nom
+смотрела;смотреть;V;ipf,tran,praet,sg,indic,f
+и;и;CONJ;
+жениха;жених;S;m,anim,acc,sg
+своего;свой;APRO;acc,sg,m,anim
+видела;видеть;V;ipf,tran,praet,sg,indic,f
+Потом;потом;ADVPRO;
+мы;мы;SPRO;pl,1p,nom
+поженились;пожениться;V;pf,intr,praet,pl,indic"
+},
+{ "Title": "Гадание на жениха",
+  "Content": "Еще гадали: зайдешь в ворота, снимешь валенок, бросишь через ворота. В какую сторону упадет валенок, там жених будет. Ране всему верили. Так и бегут по снегу босиком.",
+  "PlaceName": "Деревня Кузино Алапаевского района",
+  "PlaceLatitude": 57.849877,
+  "PlaceLongitude": 62.157731,
+  "YearOfRecord": 1966,
+  "Folklorists": [
+    {
+	  "Id": 1,
+      "FIO": "Т. Нестеренко"
+    },
+    {
+	  "Id": 2,
+      "FIO": "Э. Лазарева"
+    }
+	],
+	"Informants":[
+	{
+		"Id": 2,
+		"FIO": "Шмакова Матрена Ксенофонтовна",
+		"YearOfBirth": 1894
+	}],
+	"Genres":[
+	{
+		"Id": 24,
+		"GenreName": "Гадание"
+	}],
+	"Morph": "Еще;еще;ADV;
+гадали;гадать;V;ipf,intr,praet,pl,indic
+зайдешь;зайти;V;pf,intr,inpraes,sg,indic,2p
+в;в;PR;
+ворота;ворота;S;pl,inan,acc
+снимешь;снимать;V;tran,inpraes,sg,indic,2p,pf
+валенок;валенок;S;m,inan,(acc,sg|gen,pl|nom,sg)
+бросишь;бросать;V;inpraes,sg,indic,2p,pf
+через;через;PR;
+ворота;ворота;S;pl,inan,acc
+В;в;PR;
+какую;какой;APRO;acc,sg,f
+сторону;сторона;S;f,inan,acc,sg
+упадет;упасть;V;pf,intr,inpraes,sg,indic,3p
+валенок;валенок;S;m,inan,nom,sg
+там;там;ADVPRO;
+жених;жених;S;m,anim,nom,sg
+будет;быть;V;intr,inpraes,sg,indic,3p
+Ране;рано;ADV;dialstem
+всему;все;SPRO;sg,n,inan,dat
+верили;верить;V;ipf,intr,praet,pl,indic
+Так;так;ADVPRO;
+и;и;CONJ;
+бегут;бежать;V;intr,inpraes,pl,indic,3p,ipf
+по;по;PR;
+снегу;снег;S;m,inan,loc,sg
+босиком;босиком;ADV;"
+},
+{ "Title": "Гадание на жениха",
+  "Content": "В эту же неделю до Рождества дугу бросали через ворота. Бросишь дугу, она если в снег упадет и запряжется, то значит поеду я в этот год – выйду взамуж. Если просто ляжет на снег, то нет. Нынче уж не верят в это.",
+  "PlaceName": "Деревня Кузино Алапаевского района",
+  "PlaceLatitude": 57.849877,
+  "PlaceLongitude": 62.157731,
+  "YearOfRecord": 1966,
+  "Folklorists": [
+    {
+	  "Id": 1,
+      "FIO": "Т. Нестеренко"
+    },
+    {
+	  "Id": 2,
+      "FIO": "Э. Лазарева"
+    }
+	],
+	"Informants":[
+	{
+		"Id": 2,
+		"FIO": "Шмакова Матрена Ксенофонтовна",
+		"YearOfBirth": 1894
+	}],
+	"Genres":[
+	{
+		"Id": 24,
+		"GenreName": "Гадание"
+	}],
+	"Morph": "В;в;PR;
+эту;этот;APRO;acc,sg,f
+же;же;PART;
+неделю;неделя;S;f,inan,acc,sg
+до;до;PR;
+Рождества;рождество;S;sg,n,inan,gen
+дугу;дуга;S;f,inan,acc,sg
+бросали;бросать;V;praet,pl,indic,ipf,tran
+через;через;PR;
+ворота;ворота;S;pl,inan,acc
+Бросишь;бросать;V;inpraes,sg,indic,2p,pf
+дугу;дуга;S;f,inan,acc,sg
+она;она;SPRO;sg,3p,f,nom
+если;если;CONJ;
+в;в;PR;
+снег;снег;S;m,inan,acc,sg
+упадет;упасть;V;pf,intr,inpraes,sg,indic,3p
+и;и;CONJ;
+запряжется;запрягаться;V;intr,inpraes,sg,indic,3p,pf
+то;то;CONJ;
+значит;значит;ADV;parenth
+поеду;поехать;V;pf,intr,inpraes,sg,indic,1p
+я;я;SPRO;sg,1p,nom
+в;в;PR;
+этот;этот;APRO;acc,sg,m,inan
+год;год;S;m,inan,acc,sg
+выйду;выходить;V;intr,inpraes,sg,indic,1p,pf
+взамуж;взамуж;ADV;diallex
+Если;если;CONJ;
+просто;просто;PART;
+ляжет;ложиться;V;intr,inpraes,sg,indic,3p,pf
+на;на;PR;
+снег;снег;S;m,inan,acc,sg
+то;то;CONJ;
+нет;нет;PART;
+Нынче;нынче;ADV;
+уж;уж;PART;
+не;не;PART;
+верят;верить;V;ipf,intr,inpraes,pl,indic,3p
+в;в;PR;
+это;это;SPRO;sg,n,inan,acc"
+},
+{ "Title": "Гадание на Новый год, на Святки",
+  "Content": "Гадали на бобах, на Новый год, на Святки. 41 боб кидали, делили по частым, потом по парам. Делили на 3 кучки. Если заколодит 1 или 3 боба, то это плохо, а если на 9 головах, на 5 головах, парами – хорошо. Бросают бобы и приговаривают: «Ножка при порожке, а на сердце камень».",
+  "PlaceName": "Деревня Кузино Алапаевского района",
+  "PlaceLatitude": 57.849877,
+  "PlaceLongitude": 62.157731,
+  "YearOfRecord": 1966,
+  "Folklorists": [
+    {
+	  "Id": 1,
+      "FIO": "Т. Нестеренко"
+    },
+    {
+	  "Id": 2,
+      "FIO": "Э. Лазарева"
+    }
+	],
+	"Informants":[
+	{
+		"Id": 1,
+		"FIO": "Меньшиков Семен Андреевич",
+		"YearOfBirth": 1895
+	}],
+	"Genres":[
+	{
+		"Id": 24,
+		"GenreName": "Гадание"
+	}],
+	"Morph": "Гадали;гадать;V;ipf,intr,praet,pl,indic
+на;на;PR;
+бобах;боб;S;m,inan,abl,pl
+на;на;PR;
+Новый;новый;A;acc,sg,plen,m,inan
+год;год;S;m,inan,acc,sg
+на;на;PR;
+Святки;святки;S;pl,inan,acc
+боб;боб;S;m,inan,acc,sg
+кидали;кидать;V;ipf,tran,praet,pl,indic
+делили;делить;V;ipf,tran,praet,pl,indic
+по;по;PR;
+частям;часть;S;f,inan,dat,pl
+потом;потом;ADVPRO;
+по;по;PR;
+парам;пара;S;f,inan,dat,pl
+Делили;делить;V;ipf,tran,praet,pl,indic
+на;на;PR;
+кучки;кучка;S;f,inan,acc,pl
+Если;если;CONJ;
+заколодит;заколодить;V;pf,inpraes,sg,indic,3p
+или;или;CONJ;
+боба;боб;S;m,inan,gen,sg
+то;то;CONJ;
+это;это;SPRO;sg,n,inan,nom
+плохо;плохо;ADV;
+а;а;CONJ;
+если;если;CONJ;
+на;на;PR;
+головах;голова;S;f,inan,abl,pl
+на;на;PR;
+головах;голова;S;f,inan,abl,pl
+парами;пара;S;f,inan,ins,pl
+хорошо;хорошо;ADV;praed
+Бросают;бросать;V;inpraes,pl,indic,3p,ipf,tran
+бобы;боб;S;m,inan,acc,pl
+и;и;CONJ;
+приговаривают;приговаривать;V;tran,inpraes,pl,indic,3p,ipf
+Ножка;ножка;S;f,inan,nom,sg
+при;при;PR;
+порожке;порожек;S;m,inan,abl,sg
+а;а;CONJ;
+на;на;PR;
+сердце;сердце;S;n,inan,abl,sg
+камень;камень;S;m,inan,nom,sg"
+},
+{ "Title": "Про водяниху",
+  "Content": "Про водяниху все говорили. Вот лежала я в больнице, слышала разговор. Девчонки шли из кино, она сидела на сходнях, чесала голову. У нас на пруду тоже, мол, водяниха сидела на сходнях, чешет голову. Мне ничего не казалось, не верила, так и не казалось.",
+  "PlaceName": "Деревня Кузино Алапаевского района",
+  "PlaceLatitude": 57.849877,
+  "PlaceLongitude": 62.157731,
+  "YearOfRecord": 1966,
+  "Folklorists": [
+    {
+	  "Id": 1,
+      "FIO": "Т. Нестеренко"
+    },
+    {
+	  "Id": 2,
+      "FIO": "Э. Лазарева"
+    }
+	],
+	"Informants":[
+	{
+		"Id": 2,
+		"FIO": "Шмакова Матрена Ксенофонтовна",
+		"YearOfBirth": 1894
+	}],
+	"Genres":[
+	{
+		"Id": 25,
+		"GenreName": "Быличка"
+	}],
+	"Morph": "Про;про;PR;
+водяниху;водяниха;S;f,anim,diallex,acc,sg
+все;все;SPRO;pl,nom
+говорили;говорить;V;ipf,tran,praet,pl,indic
+Вот;вот;PART;
+лежала;лежать;V;ipf,intr,praet,sg,indic,f
+я;я;SPRO;sg,1p,nom
+в;в;PR;
+больнице;больница;S;f,inan,abl,sg
+слышала;слышать;V;ipf,tran,praet,sg,indic,f
+разговор;разговор;S;m,inan,acc,sg
+Девчонки;девчонка;S;f,anim,nom,pl
+шли;идти;V;ipf,intr,praet,pl,indic
+из;из;PR;
+кино;кино;S;n,inan,gen,pl
+она;она;SPRO;sg,3p,f,nom
+сидела;сидеть;V;ipf,intr,praet,sg,indic,f
+на;на;PR;
+сходнях;сходни;S;pl,inan,abl
+чесала;чесать;V;ipf,tran,praet,sg,indic,f
+голову;голова;S;f,inan,acc,sg
+У;у;PR;
+нас;мы;SPRO;pl,1p,gen
+на;на;PR;
+пруду;пруд;S;m,inan,loc,sg
+тоже;тоже;PART;
+мол;мол;PART;parenth
+водяниха;водяниха;S;f,anim,diallex,nom,sg
+сидела;сидеть;V;ipf,intr,praet,sg,indic,f
+на;на;PR;
+сходнях;сходни;S;pl,inan,abl
+чешет;чесать;V;ipf,tran,inpraes,sg,indic,3p
+голову;голова;S;f,inan,acc,sg
+Мне;я;SPRO;sg,1p,dat
+ничего;ничто;S;n,inan,acc,sg
+не;не;PART;
+казалось;казаться;V;ipf,intr,praet,sg,indic,n
+не;не;PART;
+верила;верить;V;ipf,intr,praet,sg,indic,f
+так;так;CONJ;
+и;и;CONJ;
+не;не;PART;
+казалось;казаться;V;ipf,intr,praet,sg,indic,n"
+},
+{ "Title": "Про лесного",
+  "Content": "Муженек рассказывал: «Шел я холостой с вечерки осенью. А за мной вдруг кто-то на сивой лошадке копну сена везет. Я бегом, он – за мной. И так я устарался, добежал до избушки. Мужики: «Ты что, Колька?» - «Да лесной копну сена за мной везет, что ли?» Вышли, посмотрели, ничего нет.",
+    "PlaceName": "Деревня Кузино Алапаевского района",
+  "PlaceLatitude": 57.849877,
+  "PlaceLongitude": 62.157731,
+  "YearOfRecord": 1966,
+  "Folklorists": [
+    {
+	  "Id": 1,
+      "FIO": "Т. Нестеренко"
+    },
+    {
+	  "Id": 2,
+      "FIO": "Э. Лазарева"
+    }
+	],
+	"Informants":[
+	{
+		"Id": 2,
+		"FIO": "Шмакова Матрена Ксенофонтовна",
+		"YearOfBirth": 1894
+	}],
+	"Genres":[
+	{
+		"Id": 25,
+		"GenreName": "Быличка"
+	}],
+	"Morph": "Муженек;муженек;S;m,anim,nom,sg
+рассказывал;рассказывать;V;praet,sg,indic,m,ipf,tran
+Шел;идти;V;ipf,intr,praet,sg,indic,m
+я;я;SPRO;sg,1p,nom
+холостой;холостой;A;nom,sg,plen,m
+с;с;PR;
+вечерки;вечерка;S;f,inan,gen,sg
+осенью;осенью;ADV;
+А;а;CONJ;
+за;за;PR;
+мной;я;SPRO;sg,1p,ins
+вдруг;вдруг;ADV;
+кто-то;кто-то;SPRO;sg,m,anim,nom
+на;на;PR;
+сивой;сивый;A;abl,sg,plen,f
+лошадке;лошадка;S;f,anim,abl,sg
+копну;копна;S;f,inan,acc,sg
+сена;сено;S;n,inan,gen,sg
+везет;везти;V;inpraes,sg,indic,3p,ipf
+Я;я;SPRO;sg,1p,nom
+бегом;бегом;ADV;
+он;он;SPRO;sg,3p,m,nom
+за;за;PR;
+мной;я;SPRO;sg,1p,ins
+И;и;CONJ;
+так;так;ADVPRO;
+я;я;SPRO;sg,1p,nom
+устарался;устараться;V;pf,intr,diallex,praet,sg,indic,m
+добежал;добегать;V;pf,intr,praet,sg,indic,m
+до;до;PR;
+избушки;избушка;S;f,inan,gen,sg
+Мужики;мужик;S;m,anim,nom,pl
+Ты;ты;SPRO;sg,2p,nom
+что;что;PART;
+Колька;колька;S;persn,m,anim,nom,sg
+Да;да;PART;
+лесной;лесной;S;m,anim,diallex,nom,sg
+копну;копна;S;f,inan,acc,sg
+сена;сено;S;n,inan,gen,sg
+за;за;PR;
+мной;я;SPRO;sg,1p,ins
+везет;везти;V;inpraes,sg,indic,3p,ipf
+что;что;PART;
+ли;ли;PART; 
+Вышли;выходить;V;intr,praet,pl,indic,pf
+посмотрели;посмотреть;V;pf,tran,praet,pl,indic
+ничего;ничто;S;n,inan,acc,sg
+нет;нет;ADV;praed"
+},
+{ "Title": "Про русалок",
+  "Content": "Женщины болтали, русалки будто ночью на плотине живут. И боялись пройти ночью по этой плотине, она мол поймает, приманит.
+Я вырос, не видел. Раньше про многих говорили. Ведьма, леший, лесной, а у северных народностей – шайтан.",
+  "PlaceName": "Деревня Кузино Алапаевского района",
+  "PlaceLatitude": 57.849877,
+  "PlaceLongitude": 62.157731,
+  "YearOfRecord": 1966,
+  "Folklorists": [
+    {
+	  "Id": 1,
+      "FIO": "Т. Нестеренко"
+    },
+    {
+	  "Id": 2,
+      "FIO": "Э. Лазарева"
+    }
+	],
+	"Informants":[
+	{
+		"Id": 1,
+		"FIO": "Меньшиков Семен Андреевич",
+		"YearOfBirth": 1895
+	}],
+	"Genres":[
+	{
+		"Id": 25,
+		"GenreName": "Быличка"
+	}],
+	"Morph": "Женщины;женщина;S;f,anim,nom,pl
+болтали;болтать;V;ipf,tran,praet,pl,indic
+русалки;русалка;S;f,anim,nom,pl
+будто;будто;PART;
+ночью;ночью;ADV;
+на;на;PR;
+плотине;плотина;S;f,inan,abl,sg
+живут;жить;V;ipf,intr,inpraes,pl,indic,3p
+И;и;CONJ;
+боялись;бояться;V;ipf,intr,praet,pl,indic
+пройти;проходить;V;intr,inf,pf
+ночью;ночью;ADV;
+по;по;PR;
+этой;этот;APRO;dat,sg,f
+плотине;плотина;S;f,inan,dat,sg
+она;она;SPRO;sg,3p,f,nom
+мол;мол;PART;parenth
+поймает;поймать;V;pf,tran,inpraes,sg,indic,3p
+приманит;приманивать;V;tran,inpraes,sg,indic,3p,pf
+Я;я;SPRO;sg,1p,nom
+вырос;вырастать;V;intr,praet,sg,indic,m,pf
+не;не;PART;
+видел;видеть;V;ipf,tran,praet,sg,indic,m
+Раньше;рано;ADV;comp
+про;про;PR;
+многих;многий;APRO;gen,pl,plen
+Ведьма;ведьма;S;f,anim,nom,sg
+леший;леший;S;m,anim,nom,sg
+лесной;лесной;S;m,anim,diallex,nom,sg
+у;у;PR;
+северных;северный;A;gen,pl,plen
+народностей;народность;S;f,inan,gen,pl
+шайтан;шайтан;S;m,anim,nom,sg"
+},
+{ "Title": "Илья Пророк",
+  "Content": "Говорили, Илья Пророк ездит по небу. Он поднялся на огненной колеснице к небесам и ездит.",
+    "PlaceName": "Деревня Кузино Алапаевского района",
+  "PlaceLatitude": 57.849877,
+  "PlaceLongitude": 62.157731,
+  "YearOfRecord": 1966,
+  "Folklorists": [
+    {
+	  "Id": 1,
+      "FIO": "Т. Нестеренко"
+    },
+    {
+	  "Id": 2,
+      "FIO": "Э. Лазарева"
+    }
+	],
+	"Informants":[
+	{
+		"Id": 1,
+		"FIO": "Меньшиков Семен Андреевич",
+		"YearOfBirth": 1895
+	}],
+	"Genres":[
+	{
+		"Id": 27,
+		"GenreName": "Поверье"
+	}],
+	"Morph": "Говорили;говорить;V;ipf,tran,praet,pl,indic
+Илья;илья;S;persn,m,anim,nom,sg
+Пророк;пророк;S;m,anim,nom,sg
+ездит;ездить;V;ipf,intr,inpraes,sg,indic,3p
+по;по;PR;
+небу;небо;S;n,inan,dat,sg
+Он;он;SPRO;sg,3p,m,nom
+поднялся;подниматься;V;intr,praet,sg,indic,m,pf
+на;на;PR;
+огненной;огненный;A;abl,sg,plen,f
+колеснице;колесница;S;f,inan,abl,sg
+к;к;PR;
+небесам;небо;S;n,inan,dat,pl
+и;и;CONJ;
+ездит;ездить;V;ipf,intr,inpraes,sg,indic,3p"
+},
+{ "Title": "Про деревню Кузино",
+  "Content": "Почему Кузино? Кузьма, видимо, основал ее. Фамилия меньшиковы была здесь. Кузиных не было и Кузьминых тоже. Пустоваловы да Переваловы, а основная – Меньшиковы. Сейчас все перемешалось.",
+    "PlaceName": "Деревня Кузино Алапаевского района",
+  "PlaceLatitude": 57.849877,
+  "PlaceLongitude": 62.157731,
+  "YearOfRecord": 1966,
+  "Folklorists": [
+    {
+	  "Id": 1,
+      "FIO": "Т. Нестеренко"
+    },
+    {
+	  "Id": 2,
+      "FIO": "Э. Лазарева"
+    }
+	],
+	"Informants":[
+	{
+		"Id": 2,
+		"FIO": "Шмакова Матрена Ксенофонтовна",
+		"YearOfBirth": 1894
+	}],
+	"Genres":[
+	{
+		"Id": 26,
+		"GenreName": "Ономастическое предание"
+	}],
+	"Morph": "Почему;почему;ADVPRO;
+Кузино;кузино;S;geo,sg,n,inan,nom
+Кузьма;кузьма;S;persn,m,anim,nom,sg
+видимо;видимо;PART;parenth
+основал;основывать;V;praet,sg,indic,m,pf
+ее;она;SPRO;sg,3p,f,acc
+Фамилия;фамилия;S;f,inan,nom,sg
+меньшиковы;меньшиков;S;famn,m,anim,nom,pl
+была;быть;V;intr,praet,sg,indic,f,ipf
+здесь;здесь;ADVPRO;
+Кузиных;кузин;S;famn,m,anim,gen,pl
+не;не;PART;
+было;быть;V;intr,praet,sg,indic,n,ipf
+и;и;CONJ;
+Кузьминых;кузьмин;S;famn,m,anim,gen,pl
+Пустоваловы;пустовалов;S;famn,m,anim,nom,pl
+да;да;CONJ;
+Переваловы;перевалов;S;famn,m,anim,nom,pl
+а;а;CONJ;
+основная;основной;A;nom,sg,plen,f
+Меньшиковы;меньшиков;S;famn,m,anim,nom,pl
+Сейчас;сейчас;ADV;
+все;все;SPRO;sg,n,inan,nom
+перемешалось;перемешаться;V;pf,intr,praet,sg,indic,n"
+},
+{ "Title": "Песня: Бедная, бедная, бедная я",
+  "Content": "Бедная, бедная, бедная я
+Горька, несчастная участь моя
+Прихожу я в гостинну
+Сажуся за стол
+Шали, перчатки
+Кидаю под стол
+Несите мне пива
+Несите мне вина
+Найдите в кого я
+В кого я влюблена
+Не несут мне пива
+Не несут вина
+Не ведут мне милого
+В кого я влюблена
+Выройте мне яму
+Выройте глубоку
+Заройте на сутки
+Живую меня
+Пусть милой ищет
+В России широкой
+Такую, как я.
+Может найдет он 
+Волосом белее.
+А сердцем милей
+Не найти никогда.
+",
+  "PlaceName": "Деревня Маскалка Алапаевского района",
+  "PlaceLatitude": 58.336139,
+  "PlaceLongitude": 61.283608,
+  "YearOfRecord": 1966,
+  "Folklorists": [
+    {
+      "FIO": "В. Блажес"
+    }
+	],
+	"Informants":[
+	{
+		"FIO": "Толмачева Мария Васильевна",
+		"YearOfBirth": 1907
+	}],
+	"Genres":[
+	{
+		"Id": 13,
+		"GenreName": "Песня"
+	}],
+	"Morph": "Бедная;бедный;A;nom,sg,plen,f
+бедная;бедный;A;nom,sg,plen,f
+бедная;бедный;A;nom,sg,plen,f
+я;я;SPRO;sg,1p,nom
+Горька;горький;A;sg,f,dialcontr 
+несчастная;несчастный;A;nom,sg,plen,f
+участь;участь;S;f,inan,nom,sg
+моя;мой;APRO;nom,sg,f
+Прихожу;приходить;V;intr,inpraes,sg,indic,1p,ipf
+я;я;SPRO;sg,1p,nom
+в;в;PR;
+гостинну;гостиная;S;f,inan,acc,sg,dialcontr 
+Сажуся;садиться;V;intr,inpraes,sg,indic,1p,ipf,dialrefltype 
+за;за;PR;
+стол;стол;S;m,inan,acc,sg
+Шали;шаль;S;f,inan,acc,pl
+перчатки;перчатка;S;f,inan,acc,pl
+Кидаю;кидать;V;ipf,tran,inpraes,sg,indic,1p
+под;под;PR;
+стол;стол;S;m,inan,acc,sg
+Несите;нести;V;ipf,tran,pl,imper,2p
+мне;я;SPRO;sg,1p,dat
+пива;пиво;S;sg,n,inan,gen
+Несите;нести;V;ipf,tran,pl,imper,2p
+мне;я;SPRO;sg,1p,dat
+вина;вино;S;n,inan,gen,sg
+Найдите;находить;V;pl,imper,2p,pf,tran
+в;в;PR;
+кого;кто;SPRO;sg,m,anim,acc
+я;я;SPRO;sg,1p,nom
+В;в;PR;
+кого;кто;SPRO;sg,m,anim,gen
+я;я;SPRO;sg,1p,nom
+влюблена;влюблять;V;tran,praet,sg,partcp,brev,f,pf,pass
+Не;не;PART;
+несут;нести;V;ipf,tran,inpraes,pl,indic,3p
+мне;я;SPRO;sg,1p,dat
+пива;пиво;S;sg,n,inan,gen
+Не;не;PART;
+несут;нести;V;ipf,tran,inpraes,pl,indic,3p
+вина;вино;S;n,inan,gen,sg
+Не;не;PART;
+ведут;вести;V;ipf,tran,inpraes,pl,indic,3p
+мне;я;SPRO;sg,1p,dat
+милого;милый;A;acc,sg,plen,m,anim)
+В;в;PR;
+кого;кто;SPRO;sg,m,anim,acc
+я;я;SPRO;sg,1p,nom
+влюблена;влюблять;V;tran,praet,sg,partcp,brev,f,pf,pass
+Выройте;вырыть;V;pf,pl,imper,2p
+мне;я;SPRO;sg,1p,dat
+яму;яма;S;f,inan,acc,sg
+Выройте;вырыть;V;pf,pl,imper,2p
+глубоку;глубокий;A;acc,sg,brev,f
+Заройте;зарывать;V;pl,imper,2p,pf
+на;на;PR;
+сутки;сутки;S;pl,inan,acc
+Живую;живой;A;acc,sg,plen,f
+меня;я;SPRO;sg,1p,acc
+Пусть;пусть;PART;
+милой;милый;A;nom,sg,plen,m,dialflex 
+ищет;искать;V;ipf,tran,inpraes,sg,indic,3p
+В;в;PR;
+России;россия;S;geo,f,inan,abl,sg
+широкой;широкий;A;abl,sg,plen,f
+Такую;такой;APRO;acc,sg,f
+как;как;CONJ;
+я;я;SPRO;sg,1p,nom
+Может;может;ADV;parenth
+найдет;находить;V;inpraes,sg,indic,3p,pf,tran
+он;он;SPRO;sg,3p,m,nom
+Волосом;волос;S;m,inan,ins,sg
+белее;белый;A;comp
+А;а;CONJ;
+сердцем;сердце;S;n,inan,ins,sg
+милей;милый;A;comp
+Не;не;PART;
+найти;находить;V;inf,pf,tran
+никогда;никогда;ADVPRO;"
+},
+{ "Title": "Песня: Скучно жить без дружка!",
+  "Content": "Скучно жить без дружка!
+Невесел белый свет
+Не лучше ли мне будет 
+Живой в могилу лечь.
+Жива в могилу лягу,
+Скажите: «Померла»,
+Любила дружка страшно,
+И он меня любил,
+Страдала понапрасну,
+И он мне изменил.
+Я с тоской унывной
+Сама к нему пойду.
+Иду я, ветер дует,
+Едва на свет гляжу.
+И тихими шагами 
+К дому подхожу.
+К дому подходила,
+Бралась я за звонок,
+С минуту простояла – 
+Вдруг ... звонок.
+Служанка выходила,
+Мне руку подала
+И с гордою насмешкой
+По комнатам вела.
+Все комнаты были открыты,
+Одна лишь заперта.
+Вдруг комната открылась,
+Изменщик мой сидит,
+Сидит он на диване,
+За круглом за столом
+И держит на коленях
+Любезную свою.
+И тут я не стерпела, 
+Сказала все ему.
+- Девица, не влюбляйся,
+Изменит он тебя,
+Изменит и оставит
+Так же, как меня.
+Надену черно платье,
+В монашки я пойду,
+Положу Богу клятву,
+Что замуж не пойду.",
+  "PlaceName": "Деревня Маскалка Алапаевского района",
+  "PlaceLatitude": 58.336139,
+  "PlaceLongitude": 61.283608,
+  "YearOfRecord": 1966,
+  "Folklorists": [
+    {
+      "FIO": "Е. Плоткина"
+    },
+	{
+      "FIO": "Т. Чайко"
+    }
+	],
+	"Informants":[
+	{
+		"Id": 3,
+		"FIO": "Толмачева Мария Васильевна",
+		"YearOfBirth": 1907
+	}],
+	"Genres":[
+	{
+		"Id": 13,
+		"GenreName": "Песня"
+	}],
+	"Morph": "Скучно;скучно;ADV;
+жить;жить;V;ipf,intr,inf
+без;без;PR;
+дружка;дружок;S;m,anim,gen,sg
+Невесел;невеселый;A;sg,brev,m
+белый;белый;A;nom,sg,plen,m
+свет;свет;S;sg,m,inan,nom
+Не;не;PART;
+лучше;хорошо;ADV;comp,parenth
+ли;ли;PART;
+мне;я;SPRO;sg,1p,dat
+будет;быть;V;intr,inpraes,sg,indic,3p
+Живой;живой;A;abl,sg,plen,f
+в;в;PR;
+могилу;могила;S;f,inan,acc,sg
+лечь;ложиться;V;intr,inf,pf
+Жива;живой;A;sg,brev,f
+в;в;PR;
+могилу;могила;S;f,inan,acc,sg
+лягу;ложиться;V;intr,inpraes,sg,indic,1p,pf
+Скажите;сказать;V;pf,tran,pl,imper,2p
+Померла;помирать;V;intr,praet,sg,indic,f,pf
+Любила;любить;V;ipf,tran,praet,sg,indic,f
+дружка;дружок;S;m,anim,acc,sg
+страшно;страшно;ADV;
+И;и;CONJ;
+он;он;SPRO;sg,3p,m,nom
+меня;я;SPRO;sg,1p,acc
+любил;любить;V;ipf,tran,praet,sg,indic,m
+Страдала;страдать;V;ipf,intr,praet,sg,indic,f
+понапрасну;понапрасну;ADV;
+И;и;CONJ;
+он;он;SPRO;sg,3p,m,nom
+мне;я;SPRO;sg,1p,dat
+изменил;изменять;V;intran,praet,sg,indic,m,pf
+Я;я;SPRO;sg,1p,nom
+с;с;PR;
+тоской;тоска;S;f,inan,ins,sg
+унывной;унывный;A;ins,sg,plen,f
+Сама;сам;APRO;nom,sg,f
+к;к;PR;
+нему;он;SPRO;sg,3p,m,dat
+пойду;пойти;V;pf,intr,inpraes,sg,indic,1p
+Иду;идти;V;ipf,intr,inpraes,sg,indic,1p
+я;я;SPRO;sg,1p,nom
+ветер;ветер;S;m,inan,nom,sg
+дует;дуть;V;ipf,tran,inpraes,sg,indic,3p
+Едва;едва;ADV;
+на;на;PR;
+свет;свет;S;sg,m,inan,acc
+гляжу;глядеть;V;ipf,tran,inpraes,sg,indic,1p
+И;и;CONJ;
+тихими;тихий;A;ins,pl,plen
+шагами;шаг;S;m,inan,ins,pl
+К;к;PR;
+дому;дом;S;m,inan,loc,sg
+подхожу;подходить;V;intr,inpraes,sg,indic,1p,ipf
+К;к;PR;
+дому;дом;S;m,inan,(dat,sg|part,sg|loc,sg)
+подходила;подходить;V;intr,praet,sg,indic,f,ipf
+Бралась;браться;V;ipf,intr,praet,sg,indic,f
+я;я;SPRO;sg,1p,nom
+за;за;PR;
+звонок;звонок;S;m,inan,acc,sg
+С;с;PR;
+минуту;минута;S;f,inan,acc,sg
+простояла;простаивать;V;intr,praet,sg,indic,f,pf
+Вдруг;вдруг;ADV;
+звонок;звонок;S;m,inan,nom,sg
+Служанка;служанка;S;f,anim,nom,sg
+выходила;выходить;V;intr,praet,sg,indic,f,ipf
+Мне;я;SPRO;sg,1p,dat
+руку;рука;S;f,inan,acc,sg
+подала;подавать;V;tran,praet,sg,indic,f,pf
+И;и;CONJ;
+с;с;PR;
+гордою;гордый;A;ins,sg,plen,f
+насмешкой;насмешка;S;f,inan,ins,sg
+По;по;PR;
+комнатам;комната;S;f,inan,dat,pl
+вела;вести;V;ipf,tran,praet,sg,indic,f
+Все;весь;APRO;nom,pl
+комнаты;комната;S;f,inan,nom,pl
+были;быть;V;intr,praet,pl,indic,ipf
+открыты;открывать;V;praet,pl,partcp,brev,pf,pass
+Одна;один;ANUM;nom,sg,f
+лишь;лишь;PART;
+заперта;запирать;V;praet,sg,partcp,brev,f,pf,pass
+Вдруг;вдруг;ADV;
+комната;комната;S;f,inan,nom,sg
+открылась;открываться;V;intr,praet,sg,indic,f,pf
+Изменщик;изменщик;S;m,anim,nom,sg
+мой;мой;APRO;nom,sg,m
+сидит;сидеть;V;ipf,intr,inpraes,sg,indic,3p
+Сидит;сидеть;V;ipf,intr,inpraes,sg,indic,3p
+он;он;SPRO;sg,3p,m,nom
+на;на;PR;|на
+PART;;;
+диване;диван;S;m,inan,abl,sg
+За;за;PR;
+круглом;круглый;A;abl,sg,plen,m
+за;за;PR;
+столом;стол;S;m,inan,ins,sg
+И;и;CONJ;
+держит;держать;V;ipf,tran,inpraes,sg,indic,3p
+на;на;PR;
+коленях;колено;S;n,inan,abl,pl
+Любезную;любезный;S;f,anim,acc,sg
+свою;свой;APRO;acc,sg,f
+И;и;CONJ;
+тут;тут;ADVPRO;
+я;я;SPRO;sg,1p,nom
+не;не;PART;
+стерпела;стерпеть;V;pf,tran,praet,sg,indic,f
+Сказала;сказать;V;pf,tran,praet,sg,indic,f
+все;все;SPRO;pl,acc
+ему;он;SPRO;sg,3p,m,dat
+Девица;девица;S;f,anim,nom,sg
+не;не;PART;
+влюбляйся;влюбляться;V;intr,sg,imper,2p,ipf
+Изменит;изменять;V;intran,inpraes,sg,indic,3p,pf
+он;он;SPRO;sg,3p,m,nom
+тебя;ты;SPRO;sg,2p,acc,dialcase 
+Изменит;изменять;V;intran,inpraes,sg,indic,3p,pf
+и;и;CONJ;
+оставит;оставлять;V;tran,inpraes,sg,indic,3p,pf
+Так;так;ADVPRO;
+же;же;PART;
+как;как;CONJ;
+меня;я;SPRO;sg,1p,acc
+Надену;надевать;V;tran,inpraes,sg,indic,1p,pf
+черно;черный;A;sg,brev,n
+платье;платье;S;n,inan,acc,sg
+В;в;PR;
+монашки;монашка;S;f,anim,acc,pl
+я;я;SPRO;sg,1p,nom
+пойду;пойти;V;pf,intr,inpraes,sg,indic,1p
+Положу;положить;V;tran,inpraes,sg,indic,1p,pf 
+Богу;бог;S;m,anim,dat,sg
+клятву;клятва;S;f,inan,acc,sg
+Что;что;CONJ;
+замуж;замуж;ADV;
+не;не;PART;
+пойду;пойти;V;pf,intr,inpraes,sg,indic,1p"
+},
+{ "Title": "Печка калёна бегала на святках",
+  "Content": "Печка калёна бегала на святках. Бегали раньше девки да ребята. А печка как катится, так они и разбежатся. Печка железная, фигурная, маленькая.",
+  "PlaceName": "Деревня Маскалка Алапаевского района",
+  "PlaceLatitude": 58.336139,
+  "PlaceLongitude": 61.283608,
+  "YearOfRecord": 1966,
+  "Folklorists": [
+    {
+		"Id":4,
+      "FIO": "Е. Плоткина"
+    },
+	{
+		"Id":5,
+      "FIO": "Т. Чайко"
+    }
+	],
+	"Informants":[
+	{
+		"FIO": "Толмачева Афанасия Андреевна ",
+		"YearOfBirth": 1899
+	}],
+	"Genres":[
+	{
+		"Id": 25,
+		"GenreName": "Быличка"
+	}],
+	"Morph": "Печка;печка;S;f,inan,nom,sg
+калёна;калить;V;ipf,tran,praet,sg,partcp,f,pass,dialcontr
+бегала;бегать;V;ipf,intr,praet,sg,indic,f
+на;на;PR;
+святках;святки;S;pl,inan,abl
+Бегали;бегать;V;ipf,intr,praet,pl,indic
+раньше;рано;ADV;comp
+девки;девка;S;f,anim,nom,pl
+да;да;CONJ;
+ребята;ребята;S;pl,anim,nom
+А;а;CONJ;
+печка;печка;S;f,inan,nom,sg
+как;как;CONJ;
+катится;катиться;V;ipf,intr,inpraes,sg,indic,3p
+так;так;CONJ;
+они;они;SPRO;pl,nom
+и;и;CONJ;
+разбежатся;разбежаться;V;pf,intr,inpraes,pl,indic,3p,dialstem
+Печка;печка;S;f,inan,nom,sg
+железная;железный;A;nom,sg,plen,f
+фигурная;фигурный;A;nom,sg,plen,f
+маленькая;маленький;A;nom,sg,plen,f"
+},
+{ "Title": "Про черную кошку",
+  "Content": "Вот черна кошка, ни единого пятнышка. Ее понесут в 12 часов в баню. Варят там. Она становится кошкой-невидимкой и потом хозяину клады носит от богатых.",
+  "PlaceName": "Деревня Маскалка Алапаевского района",
+  "PlaceLatitude": 58.336139,
+  "PlaceLongitude": 61.283608,
+  "YearOfRecord": 1966,
+  "Folklorists": [
+    {
+		"Id":4,
+      "FIO": "Е. Плоткина"
+    },
+	{
+		"Id":5,
+      "FIO": "Т. Чайко"
+    }
+	],
+	"Informants":[
+	{
+		"FIO": "Толмачева Анна Силантьевна"
+	}],
+	"Genres":[
+	{
+		"Id": 27,
+		"GenreName": "Поверье"
+	},
+	{
+		"Id": 4,
+		"GenreName": "Предание"
+	}],
+	"Morph": "Вот;вот;PART;
+черна;черный;A;sg,f,dialcontr
+кошка;кошка;S;f,anim,nom,sg
+ни;ни;PART;
+единого;единый;A;gen,sg,plen,m
+пятнышка;пятнышко;S;n,inan,gen,sg
+Ее;она;SPRO;sg,3p,f,acc
+понесут;понести;V;pf,tran,inpraes,pl,indic,3p
+в;в;PR;
+часов;час;S;m,inan,gen,pl
+в;в;PR;
+баню;баня;S;f,inan,acc,sg
+Варят;варить;V;ipf,tran,inpraes,pl,indic,3p
+там;там;ADVPRO;
+Она;она;SPRO;sg,3p,f,nom
+становится;становиться;V;intr,inpraes,sg,indic,3p,ipf
+кошкой;кошка;S;f,anim,ins,sg
+невидимкой;невидимка;S;mf,anim,ins,sg
+и;и;CONJ;
+потом;потом;ADVPRO;
+хозяину;хозяин;S;m,anim,dat,sg
+клады;клад;S;m,inan,acc,pl
+носит;носить;V;ipf,tran,inpraes,sg,indic,3p
+от;от;PR;
+богатых;богатый;S;m,anim,gen,pl"
+},
+{ "Title": "Про Ермака",
+  "Content": "Ране на покосах вдруг под косу попадет что-то крепкое. И не копыто. И не чугунное, и не железное, и не свинцовое, и не кожаное. Под вид копыта. Черная фигурка какая-то. Но не конное это. Говорят, это от Ермака. Возьмешь и отбросишь.
+Еще говорили: Ермак оглоблей крестил. Ране оружий не было, кто с чем, кто с видами, кто с топором. Не будешь голым рукам биться. Вот и крестил врагов оглоблей.",
+  "PlaceName": "Деревня Маскалка Алапаевского района",
+  "PlaceLatitude": 58.336139,
+  "PlaceLongitude": 61.283608,
+  "YearOfRecord": 1966,
+  "Folklorists": [
+    {
+		"Id":4,
+      "FIO": "Е. Плоткина"
+    },
+	{
+		"Id":5,
+      "FIO": "Т. Чайко"
+    }
+	],
+	"Informants":[
+	{
+		"Id": 4,
+		"FIO": "Толмачева Афанасия Андреевна",
+		"YearOfBirth": 1899 
+	},
+	{
+		"FIO": "Толмачева Агния Силантьевна",
+		"YearOfBirth": 1899 
+	}],
+	"Genres":[
+	{
+		"Id": 4,
+		"GenreName": "Предание"
+	}],
+	"Morph": "Ране;рано;ADV;dialstem
+на;на;PR;
+покосах;покос;S;m,inan,abl,pl
+вдруг;вдруг;ADV;
+под;под;PR;
+косу;коса;S;f,inan,acc,sg
+попадет;попадать;V;inpraes,sg,indic,3p,pf
+что-то;что-то;SPRO;sg,n,inan,nom
+крепкое;крепкий;A;nom,sg,plen,n
+И;и;CONJ;
+не;не;PART;
+копыто;копыто;S;n,inan,nom,sg
+И;и;CONJ;
+не;не;PART;
+чугунное;чугунный;A;nom,sg,plen,n
+и;и;CONJ;
+не;не;PART;
+железное;железный;A;nom,sg,plen,n
+и;и;CONJ;
+не;не;PART;
+свинцовое;свинцовый;A;nom,sg,plen,n
+и;и;CONJ;
+не;не;PART;
+кожаное;кожаный;A;nom,sg,plen,n
+Под;под;PR;
+вид;вид;S;m,inan,acc,sg
+копыта;копыто;S;n,inan,gen,sg
+Черная;черный;A;nom,sg,plen,f
+фигурка;фигурка;S;f,inan,nom,sg
+какая-то;какой-то;APRO;nom,sg,f
+Но;но;CONJ;
+не;не;PART;
+конное;конный;A;nom,sg,plen,n
+это;это;SPRO;sg,n,inan,nom
+Говорят;говорят;ADV;parenth
+;;;
+это;это;SPRO;sg,n,inan,nom
+от;от;PR;
+Ермака;ермак;S;persn,m,anim,gen,sg
+Возьмешь;взять;V;pf,tran,inpraes,sg,indic,2p
+и;и;CONJ;
+отбросишь;отбрасывать;V;inpraes,sg,indic,2p,pf
+Еще;еще;ADV;
+говорили;говорить;V;ipf,tran,praet,pl,indic
+Ермак;ермак;S;persn,m,anim,nom,sg
+крестил;крестить;V;ipf,tran,praet,sg,indic,m
+Ране;рано;ADV;dialstem
+оружий;оружие;S;n,inan,gen,pl
+не;не;PART;
+было;быть;V;intr,praet,sg,indic,n,ipf
+кто;кто;SPRO;sg,m,anim,nom
+с;с;PR;
+чем;что;SPRO;sg,n,inan,abl
+кто;кто;SPRO;sg,m,anim,nom
+с;с;PR;
+вилами;вилы;S;pl,inan,ins
+кто;кто;SPRO;sg,m,anim,nom
+с;с;PR;
+топором;топор;S;m,inan,ins,sg
+Не;не;PART;
+будешь;быть;V;intr,inpraes,sg,indic,2p
+голым;голый;A;ins,sg,plen,f,dialflex 
+рукам;рука;S;f,inan,ins,pl,dialflex
+биться;биться;V;ipf,intr,inf
+Вот;вот;PART;
+и;и;PART;
+крестил;крестить;V;ipf,tran,praet,sg,indic,m
+врагов;враг;S;m,anim,acc,pl
+оглоблей;оглобля;S;f,inan,ins,sg"
+},
+{ "Title": "Про лесного",
+  "Content": "Аполлинария с Татьяной Тимофеевной рассказывали. Набрали ребятишек, пошли за болото по ягоду. Вот берут, берут. Между собой перекликиваются понемногу, разговаривают. Вдруг им лесной стал отгаркиваться. Сначала далеко, а потом все ближе, ближе. Они до того испугались, что и рубах-то на них нету. Читают молитву да бегут, читают да бегут. Да.",
+  "PlaceName": "Деревня Маскалка Алапаевского района",
+  "PlaceLatitude": 58.336139,
+  "PlaceLongitude": 61.283608,
+  "YearOfRecord": 1966,
+  "Folklorists": [
+    {
+		"Id":4,
+      "FIO": "Е. Плоткина"
+    },
+	{
+		"Id":5,
+      "FIO": "Т. Чайко"
+    }
+	],
+	"Informants":[
+	{
+		"Id": 4,
+		"FIO": "Толмачева Афанасия Андреевна",
+		"YearOfBirth": 1899 
+	},
+	{
+		"Id": 6,
+		"FIO": "Толмачева Агния Силантьевна",
+		"YearOfBirth": 1899 
+	}],
+	"Genres":[
+	{
+		"Id": 25,
+		"GenreName": "Быличка"
+	}],
+	"Morph": "Аполлинария;аполлинария;S;persn,f,anim,nom,sg
+с;с;PR;
+Татьяной;татьяна;S;persn,f,anim,ins,sg
+Тимофеевной;тимофеевна;S;patrn,f,anim,ins,sg
+рассказывали;рассказывать;V;praet,pl,indic,ipf,tran
+Набрали;набирать;V;praet,pl,indic,pf
+ребятишек;ребятишки;S;pl,anim,acc
+пошли;пойти;V;pf,intr,praet,pl,indic
+за;за;PR;
+болото;болото;S;n,inan,acc,sg
+по;по;PR;
+ягоду;ягода;S;f,inan,acc,sg 
+Вот;вот;PART;
+берут;брать;V;ipf,tran,inpraes,pl,indic,3p
+берут;брать;V;ipf,tran,inpraes,pl,indic,3p
+Между;между;PR;
+собой;себя;SPRO;ins
+перекликиваются;перекликиваться;V;ipf,intr,inpraes,pl,indic,3p,dialstem 
+понемногу;понемногу;ADV;
+разговаривают;разговаривать;V;inpraes,pl,indic,3p,ipf,intr
+Вдруг;вдруг;ADV;
+им;они;SPRO;pl,dat
+лесной;лесной;S;m,anim,diallex,nom,sg стал
+становиться;V;intr,praet,sg,indic,m,pf;
+отгаркиваться;отгаркиваться;V;intr,diallex,inf,ipf
+Сначала;сначала;ADV;
+далеко;далеко;ADV;
+а;а;CONJ;
+потом;потом;ADVPRO;
+все;все;PART;
+ближе;близко;ADV;comp
+ближе;близко;ADV;comp
+Они;они;SPRO;pl,nom
+до;до;PR;
+того;тот;APRO;gen,sg,m
+испугались;испугаться;V;pf,intr,praet,pl,indic
+что;что;CONJ;
+и;и;PART;
+рубах;рубаха;S;f,inan,gen,pl
+то;то;PART;
+на;на;PR;
+них;они;SPRO;pl,(abl
+нету;нету;ADV;praed
+Читают;читать;V;ipf,tran,inpraes,pl,indic,3p
+молитву;молитва;S;f,inan,acc,sg
+да;да;CONJ;
+бегут;бежать;V;intr,inpraes,pl,indic,3p,ipf
+читают;читать;V;ipf,tran,inpraes,pl,indic,3p
+да;да;CONJ;
+бегут;бежать;V;intr,inpraes,pl,indic,3p,ipf
+Да;да;PART;"
+},
+{ "Title": "Про летающего змея",
+  "Content": "У Устина летал змей. Петух старый снес яйцо. Змей и выпарился из этого яйца. Летал он ночами, таскал, а чем таскал – деньгами ли, товаром – неизвестно. Видали его ночью сколько раз. Как, говорят, полетит, искры от него. От людей слух-то был, я не видала. Еще будто выпаривать яйцо должен человек, а не курица.
+Мы вам нагородили, вы уши и распустили.",
+  "PlaceName": "Деревня Маскалка Алапаевского района",
+  "PlaceLatitude": 58.336139,
+  "PlaceLongitude": 61.283608,
+  "YearOfRecord": 1966,
+  "Folklorists": [
+    {
+		"Id":4,
+      "FIO": "Е. Плоткина"
+    },
+	{
+		"Id":5,
+      "FIO": "Т. Чайко"
+    }
+	],
+	"Informants":[
+	{
+		"Id": 4,
+		"FIO": "Толмачева Афанасия Андреевна",
+		"YearOfBirth": 1899 
+	},
+	{
+		"Id": 6,
+		"FIO": "Толмачева Агния Силантьевна",
+		"YearOfBirth": 1899 
+	}],
+	"Genres":[
+	{
+		"Id": 25,
+		"GenreName": "Быличка"
+	}],
+	"Morph": "У;у;PR;
+Устина;устин;S;persn,m,anim,gen,sg
+летал;летать;V;ipf,intr,praet,sg,indic,m
+змей;змей;S;m,anim,nom,sg
+Петух;петух;S;m,anim,nom,sg
+старый;старый;A;nom,sg,plen,m
+снес;снести;V;pf,praet,sg,indic,m
+яйцо;яйцо;S;n,inan,acc,sg
+Змей;змей;S;m,anim,nom,sg
+и;и;CONJ;
+выпарился;выпариваться;V;intr,praet,sg,indic,m,pf
+из;из;PR;
+этого;этот;APRO;gen,sg,m
+яйца;яйцо;S;n,inan,gen,sg
+Летал;летать;V;ipf,intr,praet,sg,indic,m
+он;он;SPRO;sg,3p,m,nom
+ночами;ночь;S;f,inan,ins,pl
+таскал;таскать;V;ipf,tran,praet,sg,indic,m
+а;а;CONJ;
+чем;что;SPRO;sg,n,inan,ins 
+таскал;таскать;V;ipf,tran,praet,sg,indic,m
+деньгами;деньги;S;pl,inan,ins
+ли;ли;PART;
+товаром;товар;S;m,inan,ins,sg
+неизвестно;неизвестно;ADV;praed
+Видали;видать;V;ipf,tran,praet,pl,indic
+его;он;SPRO;sg,3p,m,acc
+ночью;ночью;ADV;
+сколько;сколько;ADV;
+раз;раз;S;m,inan,gen,pl
+Как;как;PART;
+говорят;говорят;ADV;parenth
+полетит;полететь;V;pf,intr,inpraes,sg,indic,3p
+искры;искра;S;f,inan,nom,pl
+от;от;PR;
+него;он;SPRO;sg,3p,m,gen
+От;от;PR;
+людей;человек;S;m,anim,gen,pl
+слух;слух;S;m,inan,nom,sg
+то;то;PART;
+был;быть;V;intr,praet,sg,indic,m,ipf
+я;я;SPRO;sg,1p,nom
+не;не;PART;
+видала;видать;V;ipf,tran,praet,sg,indic,f
+Еще;еще;PART;
+будто;будто;PART;
+выпаривать;выпаривать;V;tran,inf,ipf
+яйцо;яйцо;S;n,inan,acc,sg
+должен;должный;A;sg,brev,m
+человек;человек;S;m,anim,nom,sg
+а;а;CONJ;
+не;не;PART;
+курица;курица;S;f,anim,nom,sg
+Мы;мы;SPRO;pl,1p,nom
+вам;вы;SPRO;pl,2p,dat
+нагородили;нагородить;V;praet,pl,indic,pf
+вы;вы;SPRO;pl,2p,nom
+уши;ухо;S;n,inan,(acc,pl|nom,pl)
+и;и;PART;
+распустили;распускать;V;praet,pl,indic,pf"
+}
+]
