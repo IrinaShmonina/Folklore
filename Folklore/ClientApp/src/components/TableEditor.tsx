@@ -9,6 +9,7 @@ export interface TableEditorProps<T> {
   sizes: number[];
   columns: (keyof T)[];
   data: T[];
+  emptyPlaceholder: string;
   onChange: (row: number, column: keyof T, value: string) => void;
   renderCell: (item: T, key: keyof T) => string;
 }
@@ -40,9 +41,57 @@ export class TableEditor<T> extends React.Component<TableEditorProps<T>, TableEd
     this.setState({ editingRow: undefined, editingColumn: undefined });
   }
 
-  render() {
-    const { header, columns, data } = this.props;
+  renderBody() {
+    const { header, columns, data, emptyPlaceholder } = this.props;
     const { editingRow, editingColumn } = this.state;
+    if (data.length === 0) {
+      return <tbody>
+        <tr>
+          <td colSpan={header.length} style={{ textAlign: 'center' }}>{emptyPlaceholder}</td>
+        </tr>
+      </tbody>;
+    }
+    return <tbody>
+      {
+        data.map((item, rowIndex) =>
+          <tr key={rowIndex}>
+            {
+              columns.map((column, colIndex) => {
+                const value = this.props.renderCell(item, column);
+                const editing = rowIndex === editingRow && colIndex === editingColumn;
+                const content = editing
+                  ? <InputGroup size="sm">
+                    <TextareaAutosize
+                      className="form-control"
+                      style={{ resize: 'none' }}
+                      defaultValue={value}
+                      autoFocus={true}
+                      onBlur={e => this.finishEditing(e.target.value)}
+                    />
+                  </InputGroup>
+                  : value;
+
+                const width = this.props.sizes[colIndex];
+                const widthStyle = `${width}%`;
+                const paddingStyle = editing ? { padding: 0 } : {};
+                return (
+                  <td style={{ ...paddingStyle, width: widthStyle, whiteSpace: "pre-line" }}
+                    key={colIndex}
+                    onClick={() => this.startEditing(rowIndex, colIndex)}
+                  >
+                    {content}
+                  </td>
+                );
+              })
+            }
+          </tr>
+        )
+      }
+    </tbody>;
+  }
+
+  render() {
+    const { header } = this.props;
 
     return (
       <Table bordered size="sm">
@@ -51,43 +100,7 @@ export class TableEditor<T> extends React.Component<TableEditorProps<T>, TableEd
             {header.map((c, i) => <th key={i}>{c}</th>)}
           </tr>
         </thead>
-        <tbody>
-          {
-            data.map((item, rowIndex) =>
-              <tr key={rowIndex}>
-                {
-                  columns.map((column, colIndex) => {
-                    const value = this.props.renderCell(item, column);
-                    const editing = rowIndex === editingRow && colIndex === editingColumn;
-                    const content = editing
-                      ? <InputGroup size="sm">
-                          <TextareaAutosize
-                            className="form-control" 
-                            style={{resize: 'none'}}
-                            defaultValue={value}
-                            autoFocus={true}
-                            onBlur={e => this.finishEditing(e.target.value)}
-                          />
-                        </InputGroup>
-                      : value;
-
-                    const width = this.props.sizes[colIndex];
-                    const widthStyle = `${width}%`;
-                    const paddingStyle = editing ? { padding: 0 } : {};
-                    return (
-                      <td style={{...paddingStyle, width: widthStyle, whiteSpace: "pre-line"}}
-                        key={colIndex}
-                        onClick={() => this.startEditing(rowIndex, colIndex)}
-                      >
-                        {content}
-                      </td>
-                    );
-                  })
-                }
-              </tr>
-            )
-          }
-        </tbody>
+        {this.renderBody()}
       </Table>
     );
   }

@@ -8,6 +8,7 @@ namespace Folklore.Storages
         IEnumerable<Document> GetAllDocuments();
         Document AddDocument(Document document);
         void DeleteDocument(int id);
+        void RestoreDocument(int id);
         IEnumerable<Folklorist> GetAllFolklorists();
         Folklorist AddFolklorist(Folklorist newFolklorist);
         IEnumerable<Informant> GetAllInformants();

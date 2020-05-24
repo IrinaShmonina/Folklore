@@ -96,4 +96,12 @@ export default class DocumentApi {
 
     return await (response.json() as Promise<MorphInfo[]>);
   }
+
+  static async deleteDocument(id: number): Promise<void> {
+    await fetch(`api/document?id=${id}`, { method: "DELETE" });
+  }
+
+  static async restoreDocument(id: number): Promise<void> {
+    await fetch(`api/document/restore?id=${id}`);
+  }
 }
