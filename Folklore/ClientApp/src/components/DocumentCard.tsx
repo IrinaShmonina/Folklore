@@ -1,7 +1,7 @@
 import * as React from 'react';
 import DocumentApi from '../api/documentsApi';
 import FolkDocument from '../models/Document';
-import { Col, Button, Input, Badge, UncontrolledTooltip } from 'reactstrap';
+import { Col, Button, Input, Badge, UncontrolledTooltip, Alert, InputGroup } from 'reactstrap';
 import { Informant } from '../models/Informant';
 import { InputRow } from '../components/InputRow';
 import { DocInput } from '../components/DocInput';
@@ -19,6 +19,7 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 import { TableEditor } from './TableEditor';
 import { downloadTextFile, uploadTextFile } from '../utils/files';
 import Loader from './Loader';
+import { Link } from 'react-router-dom';
 
 export interface DocumentCardProps {
   doc: FolkDocument;
@@ -99,56 +100,56 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     doc = {
       ...doc,
       morph: serializeMorphCsv(this.state.morph) // сохраянем редактированный morph
-    }
+    };
     this.setState({ editing: false });
     await this.props.onDocSave(doc);
   }
 
   checkTitle() {
     let { doc } = this.state;
-    let inputs: string[] = []
+    let inputs: string[] = [];
 
     if (doc.title === '' || doc.title.length > 200) {
-      inputs.push('title')
+      inputs.push('title');
     }
     if (doc.yearOfRecord < 1000 || doc.yearOfRecord > 9999) {
-      inputs.push('yearOfRecord')
+      inputs.push('yearOfRecord');
     }
-    return inputs
+    return inputs;
 
   }
 
-  checkUniqeId(array: {id?:number}[], id:number|undefined):boolean{
-    if (!id){
+  checkUniqeId(array: { id?: number; }[], id: number | undefined): boolean {
+    if (!id) {
       return true;
     }
 
-    return array.every(x=>x.id !== id);
+    return array.every(x => x.id !== id);
   }
 
   checkMinForms() {
     let { newFolklorist, newInformant, newTag, newGenre, newMTC, doc } = this.state;
-    let inputs: string[] = []
+    let inputs: string[] = [];
 
-    if (newFolklorist.fio === '' || newFolklorist.fio.length > 200 || !this.checkUniqeId(doc.folklorists,newFolklorist.id)) {
-      inputs.push('newFolklorist')
+    if (newFolklorist.fio === '' || newFolklorist.fio.length > 200 || !this.checkUniqeId(doc.folklorists, newFolklorist.id)) {
+      inputs.push('newFolklorist');
     }
-    if (newInformant.fio === '' || newInformant.fio.length > 200 || !this.checkUniqeId(doc.informants,newInformant.id)) {
-      inputs.push('newInformant')
+    if (newInformant.fio === '' || newInformant.fio.length > 200 || !this.checkUniqeId(doc.informants, newInformant.id)) {
+      inputs.push('newInformant');
     }
     if (newInformant.yearOfBirth && (newInformant.yearOfBirth < 1000 || newInformant.yearOfBirth > 9999)) {
-      inputs.push('newInformant')
+      inputs.push('newInformant');
     }
-    if (newTag.tagName === '' || newTag.tagName.length > 50 || !this.checkUniqeId(doc.tags,newTag.id)) {
-      inputs.push('newTag')
+    if (newTag.tagName === '' || newTag.tagName.length > 50 || !this.checkUniqeId(doc.tags, newTag.id)) {
+      inputs.push('newTag');
     }
-    if (newGenre.genreName === '' || newGenre.genreName.length > 50 || !this.checkUniqeId(doc.genres,newGenre.id)) {
-      inputs.push('newGenre')
+    if (newGenre.genreName === '' || newGenre.genreName.length > 50 || !this.checkUniqeId(doc.genres, newGenre.id)) {
+      inputs.push('newGenre');
     }
-    if (newMTC.classificationName === '' || newMTC.classificationName.length > 50 || !this.checkUniqeId(doc.motivationalThematicClassifications,newMTC.id)) {
-      inputs.push('newMTC')
+    if (newMTC.classificationName === '' || newMTC.classificationName.length > 50 || !this.checkUniqeId(doc.motivationalThematicClassifications, newMTC.id)) {
+      inputs.push('newMTC');
     }
-    return inputs
+    return inputs;
 
   }
 
@@ -200,9 +201,9 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
   }
 
   async searchInformants(q: string) {
-    this.setState({ searchLoadingInformant: true })
-    this.setState({ informants: await DocumentApi.searchInformants(q) })
-    this.setState({ searchLoadingInformant: false })
+    this.setState({ searchLoadingInformant: true });
+    this.setState({ informants: await DocumentApi.searchInformants(q) });
+    this.setState({ searchLoadingInformant: false });
   }
 
   renderInformant() {
@@ -225,7 +226,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     ));
 
     let recommendation = this.checkMinForms();
-    let ref = React.createRef<any>()
+    let ref = React.createRef<any>();
     const editingComponent = (
       <InputRow>
         <Col sm={8}>
@@ -248,11 +249,11 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
           /></Col>
 
         <Col sm={2}>
-          <Input 
-            type="number" 
-            placeholder="Год" 
-            value={newInformant.yearOfBirth || ''} 
-            onChange={e => this.changeNewInformant({ yearOfBirth: parseInt(e.target.value, 10) || undefined, id: undefined})}
+          <Input
+            type="number"
+            placeholder="Год"
+            value={newInformant.yearOfBirth || ''}
+            onChange={e => this.changeNewInformant({ yearOfBirth: parseInt(e.target.value, 10) || undefined, id: undefined })}
           />
         </Col>
         <Col sm={2}>
@@ -305,9 +306,9 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
   }
 
   async searchFolklorists(q: string) {
-    this.setState({ searchLoadingFolklorist: true })
-    this.setState({ folklorists: await DocumentApi.searchFolklorist(q) })
-    this.setState({ searchLoadingFolklorist: false })
+    this.setState({ searchLoadingFolklorist: true });
+    this.setState({ folklorists: await DocumentApi.searchFolklorist(q) });
+    this.setState({ searchLoadingFolklorist: false });
   }
 
 
@@ -328,7 +329,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     ));
 
     let recommendation = this.checkMinForms();
-    let ref = React.createRef<any>()
+    let ref = React.createRef<any>();
     const editingComponent = (
       <InputRow>
         <Col sm={10}>
@@ -340,7 +341,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
             minLength={3}
             options={folklorists}
             placeholder="ФИО"
-            onInputChange={e => this.changeNewFolklorist({ fio: e ,id: undefined})}
+            onInputChange={e => this.changeNewFolklorist({ fio: e, id: undefined })}
             onChange={e => e.length > 0 ? this.changeNewFolklorist({ id: e[0].id, fio: e[0].fio }) : ''}
             renderMenuItemChildren={(option) => (
               <div>
@@ -372,7 +373,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
         ...newTag,
         ...partialTag
       }
-    })
+    });
   }
 
   pushNewTag() {
@@ -394,14 +395,14 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     let { doc } = this.state;
     this.changeDocument({
       tags: doc.tags.filter((_, i) => i !== deleteIndex)
-    })
+    });
   }
   makeBadge(tagName: string, i: number) {
     const { editing } = this.state;
     if (editing) {
       return (
         <React.Fragment key={i}>
-          <Badge id={`tag${i}`} color="primary" style={{ margin: "3px", fontSize: "12pt", cursor: "pointer" }} onClick={() => { this.deleteTag(i) }}>
+          <Badge id={`tag${i}`} color="primary" style={{ margin: "3px", fontSize: "12pt", cursor: "pointer" }} onClick={() => { this.deleteTag(i); }}>
             {tagName}
           </Badge>
           <UncontrolledTooltip placement="bottom" target={`tag${i}`}>
@@ -416,9 +417,9 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
   }
 
   async searchTags(q: string) {
-    this.setState({ searchLoadingTag: true })
-    this.setState({ tags: await DocumentApi.searchTags(q) })
-    this.setState({ searchLoadingTag: false })
+    this.setState({ searchLoadingTag: true });
+    this.setState({ tags: await DocumentApi.searchTags(q) });
+    this.setState({ searchLoadingTag: false });
   }
 
 
@@ -428,7 +429,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
       this.makeBadge(tag.tagName, i)
     );
     let recommendation = this.checkMinForms();
-    let ref = React.createRef<any>()
+    let ref = React.createRef<any>();
     let editingComponent = (
 
       <InputRow>
@@ -442,7 +443,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
             minLength={3}
             options={tags}
             placeholder="Тег"
-            onInputChange={e => this.changeNewTag({ tagName: e, id: undefined})}
+            onInputChange={e => this.changeNewTag({ tagName: e, id: undefined })}
             onChange={e => e.length > 0 ? this.changeNewTag({ id: e[0].id, tagName: e[0].tagName }) : ''}
             renderMenuItemChildren={(option) => (
               <div>
@@ -477,7 +478,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
         ...newGenre,
         ...partialGenre
       }
-    })
+    });
   }
 
   pushNewGenre() {
@@ -499,14 +500,14 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     let { doc } = this.state;
     this.changeDocument({
       genres: doc.genres.filter((_, i) => i !== deleteIndex)
-    })
+    });
   }
   makeBadgeGenre(genreName: string, i: number) {
     const { editing } = this.state;
     if (editing) {
       return (
         <React.Fragment key={i}>
-          <Badge id={`genre${i}`} color="primary" style={{ margin: "3px", fontSize: "12pt", cursor: "pointer" }} onClick={() => { this.deleteGenre(i) }}>
+          <Badge id={`genre${i}`} color="primary" style={{ margin: "3px", fontSize: "12pt", cursor: "pointer" }} onClick={() => { this.deleteGenre(i); }}>
             {genreName}
           </Badge>
           <UncontrolledTooltip placement="bottom" target={`genre${i}`}>
@@ -521,9 +522,9 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
   }
 
   async searchGenres(q: string) {
-    this.setState({ searchLoadingGenre: true })
-    this.setState({ genres: await DocumentApi.searchGenres(q) })
-    this.setState({ searchLoadingGenre: false })
+    this.setState({ searchLoadingGenre: true });
+    this.setState({ genres: await DocumentApi.searchGenres(q) });
+    this.setState({ searchLoadingGenre: false });
   }
 
   renderGenres() {
@@ -532,22 +533,22 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
       this.makeBadgeGenre(genre.genreName, i)
     );
     let recommendation = this.checkMinForms();
-    let ref = React.createRef<any>()
+    let ref = React.createRef<any>();
     let editingComponent = (
       <InputRow>
         <Col sm={10}>
           <AsyncTypeahead
             id="labelkey-example"
             onSearch={(q) => this.searchGenres(q)}
-            labelKey = 'genreName'
+            labelKey='genreName'
             isLoading={searchLoadingGenre}
             minLength={3}
             options={genres}
             placeholder="Жанр"
-            onInputChange={e => this.changeNewGenre({ genreName: e,id: undefined })}
+            onInputChange={e => this.changeNewGenre({ genreName: e, id: undefined })}
             onChange={e => {
               if (e.length > 0) {
-                this.changeNewGenre({ genreName: e[0].genreName, id: e[0].id})
+                this.changeNewGenre({ genreName: e[0].genreName, id: e[0].id });
               }
             }}
             renderMenuItemChildren={(option) => (
@@ -624,9 +625,9 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
 
 
   async searchMTCs(q: string) {
-    this.setState({ searchLoadingMTC: true })
-    this.setState({ mtcs: await DocumentApi.searchMTCs(q) })
-    this.setState({ searchLoadingMTC: false })
+    this.setState({ searchLoadingMTC: true });
+    this.setState({ mtcs: await DocumentApi.searchMTCs(q) });
+    this.setState({ searchLoadingMTC: false });
   }
 
   renderMTC() {
@@ -649,7 +650,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     ));
 
     let recommendation = this.checkMinForms();
-    let ref = React.createRef<any>()
+    let ref = React.createRef<any>();
     const editingComponent = (
       <InputRow>
         <Col sm={8}>
@@ -661,7 +662,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
             minLength={3}
             options={mtcs}
             placeholder="Мотив или тематика"
-            onInputChange={e => this.changeNewMTC({ classificationName: e,id: undefined })}
+            onInputChange={e => this.changeNewMTC({ classificationName: e, id: undefined })}
             onChange={e => e.length > 0 ? this.changeNewMTC({ id: e[0].id, classificationName: e[0].classificationName, code: e[0].code }) : ''}
             renderMenuItemChildren={(option) => (
               <div>
@@ -671,7 +672,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
             ref={ref}
           /></Col>
         <Col sm={2}>
-          <Input type="text" placeholder="Код" value={newMTC.code} onChange={e => this.changeNewMTC({ code: e.target.value, id: undefined})} />
+          <Input type="text" placeholder="Код" value={newMTC.code} onChange={e => this.changeNewMTC({ code: e.target.value, id: undefined })} />
         </Col>
         <Col sm={2}>
           <Button outline color="primary" style={{ width: "100%" }} disabled={recommendation.includes('newMTC')} onClick={() => { this.pushNewMTC(); ref.current.clear(); }}>Добавить</Button>
@@ -697,7 +698,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
         placeLatitude: placeInfo.latitude,
         placeLongitude: placeInfo.longtitude
       });
-    }
+    };
 
     let editingComponent = (
       <InputRow>
@@ -734,7 +735,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     }
 
     const file = fileList[0];
-    this.setState({ loading: true })
+    this.setState({ loading: true });
     try {
       const id = await DocumentApi.uploadFile(file);
       this.changeDocument({ fileName: file.name, fileId: id });
@@ -790,9 +791,9 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
       );
       renderedParts.push(renderedPart);
       currentWord++;
-    })
+    });
 
-    return <p style={{ whiteSpace: "pre-line" }}>{renderedParts}</p>
+    return <p style={{ whiteSpace: "pre-line" }}>{renderedParts}</p>;
   }
 
   exportMorphCsv() {
@@ -814,12 +815,12 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     if (/^\s+$/g.test(text)) {
       return;
     }
-    this.setState({loading: true});
+    this.setState({ loading: true });
     try {
       const morph = await DocumentApi.getMorphs(text);
-      this.setState({ morph })
+      this.setState({ morph });
     } finally {
-      this.setState({loading: false});
+      this.setState({ loading: false });
     }
   }
 
@@ -830,17 +831,17 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
       <>
         <InputRow>
           <Col>
-            <Button outline style={{width: '100%'}} onClick={() => this.exportMorphCsv()}>Экспорт в CSV</Button>
+            <Button outline style={{ width: '100%' }} onClick={() => this.exportMorphCsv()}>Экспорт в CSV</Button>
           </Col>
           <Col>
-            <Button outline style={{width: '100%'}} onClick={() => this.importMorphCsv()}>Импорт из CSV</Button>
+            <Button outline style={{ width: '100%' }} onClick={() => this.importMorphCsv()}>Импорт из CSV</Button>
           </Col>
           <Col>
-            <Button outline style={{width: '100%'}} onClick={() => this.getMorphsForText()}>Заполнить из Mystem</Button>
+            <Button outline style={{ width: '100%' }} onClick={() => this.getMorphsForText()}>Заполнить из Mystem</Button>
           </Col>
         </InputRow>
         <InputRow>
-        
+
           <Col>
             <TableEditor
               header={['Слово', 'Начальная форма', 'Часть речи', 'Граматические признаки']}
@@ -849,11 +850,11 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
               data={this.state.morph}
               emptyPlaceholder="Данных нет, заполните с помощью Mystem или экспортируйте из CSV файла"
               onChange={(row, col, value) => {
-                const newMorph = [...this.state.morph]
+                const newMorph = [...this.state.morph];
                 newMorph[row] = {
                   ...newMorph[row],
                   [col]: value.trim()
-                }
+                };
                 this.setState({ morph: newMorph });
               }}
               renderCell={(item, key) => item[key]}
@@ -865,13 +866,100 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
     );
   }
 
+  async deleteDocument() {
+    const { doc } = this.state;
+    if (doc.id === undefined) {
+      return;
+    }
+
+    this.setState({ loading: true });
+    try {
+      await DocumentApi.deleteDocument(doc.id);
+      this.changeDocument({ deleted: true });
+    } finally {
+      this.setState({ loading: false });
+    }
+  }
+
+  async restoreDocument() {
+    const { doc } = this.state;
+    if (doc.id === undefined) {
+      return;
+    }
+
+    this.setState({ loading: true });
+    try {
+      await DocumentApi.restoreDocument(doc.id);
+      this.changeDocument({ deleted: false });
+    } finally {
+      this.setState({ loading: false });
+    }
+  }
+
+  renderButtons() {
+    const { doc, editing, loading } = this.state;
+    let block = this.checkTitle();
+
+    if (editing) {
+      return <InputRow>
+        <Col>
+          <Button
+            outline
+            color="success"
+            style={{ width: "100%" }}
+            disabled={block.length !== 0}
+            onClick={() => this.saveChanges()}
+          >
+            Сохранить документ
+          </Button>
+        </Col>
+      </InputRow>;
+    }
+
+    if (doc.deleted) {
+      return <InputRow>
+        <Col>
+          <Button outline color="primary" style={{ width: "100%" }} onClick={() => this.restoreDocument()}>
+            Восстановить документ
+          </Button>
+        </Col>
+      </InputRow>;
+    }
+
+    return <InputRow>
+      <Col>
+        <Button outline color="primary" style={{ width: "100%" }} onClick={() => this.startEditing()}>Изменить</Button>
+      </Col>
+      <Col>
+        <Button outline color="danger" style={{ width: "100%" }} onClick={() => this.deleteDocument()}>Удалить</Button>
+      </Col>
+    </InputRow>;
+  }
+
+  renderDeletedInfo() {
+    const { doc } = this.state;
+    if (doc.deleted) {
+      return (
+        <InputGroup>
+          <Col>
+            <Alert color="danger" style={{whiteSpace: 'pre'}}>
+              Докуент удалён, его нельзя редактировать и он не виден в поиске, <Link to='#' onClick={() => this.restoreDocument()}>восстановить?</Link>
+            </Alert>
+          </Col>
+        </InputGroup>
+
+      );
+    }
+  }
+
   render() {
     const { doc, editing, loading } = this.state;
     let block = this.checkTitle();
 
     return (
       <div>
-        { loading && <Loader /> }
+        {this.renderDeletedInfo()}
+        {loading && <Loader />}
         <DocInput label="Название">
           <Input readOnly={!editing} value={doc.title} invalid={block.includes('title')} onChange={x => this.changeDocument({ title: x.target.value })} />
         </DocInput>
@@ -885,7 +973,7 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
         <DocInput
           visible={doc.content !== '' || editing}
           label="Содержание">
-           <div>
+          <div>
             {this.renderContent()}
           </div>
         </DocInput>
@@ -954,19 +1042,11 @@ export default class DocumentCard extends React.Component<DocumentCardProps, Doc
         <DocInput
           visible={editing}
           label="Морфологический анализ">
-            {this.renderMorph()}
+          {this.renderMorph()}
         </DocInput>
 
         <DocInput label="">
-          <InputRow>
-            <Col>
-              {
-                editing
-                  ? <Button outline color="success" style={{ width: "100%" }} disabled={block.length !== 0} onClick={() => this.saveChanges()}>Сохранить документ</Button>
-                  : <Button outline color="secondary" style={{ width: "100%" }} onClick={() => this.startEditing()}>Изменить</Button>
-              }
-            </Col>
-          </InputRow>
+          {this.renderButtons()}
         </DocInput>
       </div>
     );

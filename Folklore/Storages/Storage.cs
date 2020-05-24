@@ -265,6 +265,14 @@ VALUES (@IdDoc,@IdInf)", new {IdDoc = updateDocument.Id, IdInf = informantId});
 
             db.Query<Document>(sql, new { Id = id });
         }
+
+        public void RestoreDocument(int id)
+        {
+            var sql = "UPDATE [dbo].[Documents] SET Deleted = 0 WHERE Id = @Id";
+
+            db.Query<Document>(sql, new { Id = id });
+        }
+
         public Document AddDocument(Document document)
         {
             var sqlAddDoc = @"INSERT INTO [dbo].Documents

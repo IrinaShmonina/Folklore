@@ -37,6 +37,13 @@ namespace Folklore.Controllers
         {
             storage.DeleteDocument(id);
         }
+        
+        [HttpGet]
+        [Route("restore")]
+        public void RestoreDocument([FromQuery] int id)
+        {
+            storage.RestoreDocument(id);
+        }
 
         [HttpPatch]
         public Document UpdateDocument([FromBody] Document updateDocument)
