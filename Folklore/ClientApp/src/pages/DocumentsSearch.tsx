@@ -21,7 +21,8 @@ export interface DocumentsSearchState {
   search: string,
   genre: string,
   genres: Genre[],
-  searchLoading: boolean,
+  searchLoadingGenre: boolean,
+  searchLoadingInformant: boolean,
   place: string,
   yearOfRecord: string,
   informants: Informant[],
@@ -38,7 +39,8 @@ export default class DocumentsSearch extends React.Component<DocumentsSearchProp
       search: '', 
       genre: '', 
       genres: [], 
-      searchLoading: false, 
+      searchLoadingGenre: false,
+      searchLoadingInformant: false,
       place: '', 
       yearOfRecord: '', 
       informants: [], 
@@ -63,20 +65,21 @@ export default class DocumentsSearch extends React.Component<DocumentsSearchProp
 
   async searchDocuments() {
     let { search, genre, place, yearOfRecord, informant } = this.state;
+    this.setState({loading:true})
     this.setState({ documents: await DocumentApi.searchDocuments(search, genre, place, yearOfRecord, informant) });
-
+    this.setState({loading:false})
 
   }
 
   async searchGenres(q: string) {
-    this.setState({ searchLoading: true })
+    this.setState({ searchLoadingGenre: true })
     this.setState({ genres: await DocumentApi.searchGenres(q) })
-    this.setState({ searchLoading: false })
+    this.setState({ searchLoadingGenre: false })
   }
   async searchInformants(q: string) {
-    this.setState({ searchLoading: true })
+    this.setState({ searchLoadingInformant: true })
     this.setState({ informants: await DocumentApi.searchInformants(q) })
-    this.setState({ searchLoading: false })
+    this.setState({ searchLoadingInformant: false })
   }
 
   public openPage(n:number){
@@ -93,7 +96,7 @@ export default class DocumentsSearch extends React.Component<DocumentsSearchProp
   }
 
   private renderDocuments() {
-    const { loading, search, genres, searchLoading, place, yearOfRecord, informants, documents,page } = this.state;
+    const { loading, search, genres, searchLoadingGenre, searchLoadingInformant, place, yearOfRecord, informants, documents,page } = this.state;
     const paginationComponents = countPagination(documents).map((i) => (
       <PaginationItem key={i} active={page === i}>
       
@@ -110,13 +113,13 @@ export default class DocumentsSearch extends React.Component<DocumentsSearchProp
         <br />
         <InputRow>
           <Col sm={2}>
-            <Input type="text" placeholder="Тескт содержит" value={search} onChange={e => this.setState({ search: e.target.value })} />
+            <Input type="text" placeholder="Текст содержит" value={search} onChange={e => this.setState({ search: e.target.value })} />
           </Col>
           <Col sm={2}>
             <AsyncTypeahead
               id="labelkey-example"
               onSearch={(q) => this.searchGenres(q)}
-              isLoading={searchLoading}
+              isLoading={searchLoadingGenre}
               minLength={3}
               options={genres.map((genre) => genre.genreName)}
               placeholder="Жанр"
@@ -133,7 +136,7 @@ export default class DocumentsSearch extends React.Component<DocumentsSearchProp
             <AsyncTypeahead
               id="labelkey-example"
               onSearch={(q) => this.searchInformants(q)}
-              isLoading={searchLoading}
+              isLoading={searchLoadingInformant}
               minLength={3}
               options={informants.map((Informant) => Informant.fio)}
               placeholder="Информант"

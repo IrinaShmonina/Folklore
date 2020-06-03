@@ -299,27 +299,27 @@ VALUES (@IdDoc,@IdInf)", new {IdDoc = updateDocument.Id, IdInf = informantId});
         public IEnumerable<Document> SearchDocument(string str, string genre, string place, string yearOfRecord,string informant)
         {
             var s = "%" + str + "%";
-            var sql = @"SELECT TOP(200) * FROM [dbo].[Documents] WHERE (Title like @s OR Content like @s)";
+            var sql = @"SELECT TOP(200) d.* FROM [dbo].[Documents] d Left join [dbo].[Morph] m on m.[DocumentId] = d.Id WHERE (d.Title like @s OR d.Content like @s OR m.Analysis like @s)";
             if (!string.IsNullOrEmpty(genre))
             {
-                sql += @"AND Id in 
-(SELECT[DocumentId] FROM[dbo].[Rels_Document_Genre] WHERE[GenreId] in
-    (SELECT[Id] FROM[dbo].[Genres] WHERE[GenreName] like @g))";
+                sql += @"AND d.Id in 
+(SELECT [DocumentId] FROM[dbo].[Rels_Document_Genre] WHERE[GenreId] in
+    (SELECT [Id] FROM[dbo].[Genres] WHERE[GenreName] like @g))";
             }
             var g = "%" + genre + "%";
             if (!string.IsNullOrEmpty(place))
             {
-                sql += @"AND PlaceName like @p";
+                sql += @"AND d.PlaceName like @p";
             }
             var p = "%" + place + "%";
             if (!string.IsNullOrEmpty(yearOfRecord))
             {
-                sql += @"AND YearOfRecord=@y";
+                sql += @"AND d.YearOfRecord=@y";
             }
             int.TryParse(yearOfRecord, out var y);
             if (!string.IsNullOrEmpty(informant))
             {
-                sql += @"AND Id in 
+                sql += @"AND d.Id in 
 (SELECT[DocumentId] FROM[dbo].[Rels_Document_Informant] WHERE [InformantId] in
     (SELECT[Id] FROM [dbo].[Informants] WHERE [FIO] like @i))";
             }
